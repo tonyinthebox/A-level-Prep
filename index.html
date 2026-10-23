@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A-Level English 82 Prep</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Sarabun:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: answer-sheet strip + 10-day timetable; day pages use OMR-bubble answer rows */
+:root{
+  --paper:#F5F7F4; --surface:#FFFFFF; --ink:#1B2526; --muted:#5A6968; --line:#D8DFDB;
+  --accent:#0D6A64; --accent-ink:#FFFFFF; --accent-soft:#E1EFEC;
+  --graphite:#2C3436; --ok:#1C7A4A; --ok-soft:#E2F2E8; --bad:#B02E25; --bad-soft:#FBE6E3;
+  --tip:#FFF3C9; --tip-line:#C9A400; --key:#E4EDF9; --key-line:#2E5C9A;
+  --seg1:#0D6A64; --seg2:#3E8E7E; --seg3:#7FB3A3;
+  --display:'Bai Jamjuree','Sarabun','Leelawadee UI',Tahoma,sans-serif;
+  --body:'Sarabun','Leelawadee UI',Tahoma,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111716; --surface:#192120; --ink:#E5ECEA; --muted:#9BA9A7; --line:#2D3A38;
+  --accent:#55BDB3; --accent-ink:#0B1413; --accent-soft:#16312F;
+  --graphite:#DCE3E1; --ok:#62C690; --ok-soft:#163024; --bad:#F2837A; --bad-soft:#3A1D1A;
+  --tip:#352F17; --tip-line:#C9A400; --key:#1B2638; --key-line:#7FA6E0;
+  --seg1:#55BDB3; --seg2:#3E8E7E; --seg3:#2F665C; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#111716; --surface:#192120; --ink:#E5ECEA; --muted:#9BA9A7; --line:#2D3A38;
+  --accent:#55BDB3; --accent-ink:#0B1413; --accent-soft:#16312F;
+  --graphite:#DCE3E1; --ok:#62C690; --ok-soft:#163024; --bad:#F2837A; --bad-soft:#3A1D1A;
+  --tip:#352F17; --tip-line:#C9A400; --key:#1B2638; --key-line:#7FA6E0;
+  --seg1:#55BDB3; --seg2:#3E8E7E; --seg3:#2F665C; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+.wrap{max-width:880px;margin:0 auto;padding-block:20px 48px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700}
+h2{font-size:1.35rem;font-weight:600}
+h3{font-size:1.1rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:700;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
+.brand .dot{width:22px;height:22px;border-radius:50%;background:var(--graphite);box-shadow:inset 0 0 0 3px var(--paper),0 0 0 2px var(--graphite)}
+.back{background:none;border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
+
+/* answer-sheet strip */
+.sheet{display:flex;flex-direction:column;gap:10px}
+.strip{display:grid;grid-template-columns:20fr 40fr 20fr;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.seg{padding:12px 12px 10px;color:#fff;min-width:0}
+.seg:nth-child(1){background:var(--seg1)} .seg:nth-child(2){background:var(--seg2)} .seg:nth-child(3){background:var(--seg3);color:#fff}
+.seg b{font-family:var(--display);display:block;font-size:1rem}
+.seg span{font-family:var(--mono);font-size:.8rem;opacity:.95}
+.facts{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.95rem}
+.facts strong{font-family:var(--mono);font-weight:500}
+
+/* timetable */
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.day{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;color:var(--ink);width:100%}
+.day:hover:not(.locked){border-color:var(--accent)}
+.day.locked{opacity:.62;cursor:not-allowed}
+.bub{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--graphite);display:grid;place-items:center;font-family:var(--mono);font-size:.95rem}
+.day.done .bub{background:var(--graphite);color:var(--paper)}
+.day.locked .bub{border-style:dashed}
+.day .t{font-family:var(--display);font-weight:600;line-height:1.3}
+.day .s{font-size:.85rem;color:var(--muted)}
+.state{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.state.open{color:var(--accent)} .state.done{color:var(--ok)}
+
+/* day page */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tab{background:none;border:none;border-bottom:3px solid transparent;padding:8px 12px;color:var(--muted);font-family:var(--display);font-weight:600}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.panel{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+ul.clean{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.call{border-left:5px solid var(--tip-line);background:var(--tip);border-radius:6px;padding:12px 14px}
+.call.key{border-left-color:var(--key-line);background:var(--key)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--display);font-weight:600;color:var(--muted)}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* flashcards */
+.fc-wrap{display:flex;flex-direction:column;gap:12px;align-items:center}
+.fc{width:100%;max-width:520px;min-height:200px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center;color:var(--ink)}
+.fc .w{font-family:var(--display);font-size:1.9rem;font-weight:700}
+.fc .pos{font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+.fc .m{font-size:1.3rem;font-weight:600}
+.fc .ex{font-style:italic;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 16px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* questions */
+.mode{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.passage{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;font-family:'Sarabun',Georgia,serif}
+.passage .sit{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.dl b{font-family:var(--display)}
+.q{display:flex;flex-direction:column;gap:8px}
+.q .stem{font-weight:600}
+.q .stem .n{font-family:var(--mono);margin-right:8px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink);width:100%}
+.opt .b{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--graphite);display:grid;place-items:center;font-family:var(--mono);font-size:.8rem;margin-top:1px}
+.opt.sel .b{background:var(--graphite);color:var(--paper)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .b{border-color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.exp{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:6px;font-size:.97rem;display:flex;flex-direction:column;gap:4px}
+.timer{font-family:var(--mono);font-size:1.05rem;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-variant-numeric:tabular-nums}
+.sticky{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding-block:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.score{font-family:var(--display);font-size:2rem;font-weight:700}
+.lock{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:520px){.strip{grid-template-columns:1fr}.dl{grid-template-columns:1fr;gap:0 0}.dl b{margin-top:6px}}
+@media (prefers-reduced-motion:no-preference){.opt,.day{transition:border-color .15s,background-color .15s}}
+</style>
+<style>[hidden]{display:none!important}img{max-width:100%}body{margin:0}</style>
+</head>
+<body>
+
+<div class="wrap" id="app"></div>
+
+<script>
+/* ================= COURSE SETTINGS (แก้ไขที่นี่) =================
+   start   : วันที่เปิดวันที่ 1 (ปี ค.ศ. รูปแบบ YYYY-MM-DD)
+   unlock  : กำหนดวันเปิดรายวันเอง เช่น {3:'2026-11-05'} (ถ้าไม่กำหนด = start + (วัน-1) วัน)
+   openAll : true = เปิดทุกวันทันที                                         */
+const COURSE = { start: '2026-10-24', unlock: {}, openAll: false };
+
+const DAYS = [
+  {n:1, part:'ภาพรวม + ทดสอบ', title:'ภาพรวมข้อสอบ และทดสอบก่อนเรียน'},
+  {n:2, part:'Listening & Speaking 1', title:'Short Conversations'},
+  {n:3, part:'Listening & Speaking 2', title:'Idioms, Discourse Markers, Long Conversation'},
+  {n:4, part:'Reading 1', title:'Advertisements และ Reviews'},
+  {n:5, part:'Reading 2', title:'Visuals และ News Report'},
+  {n:6, part:'Reading 3', title:'General Articles'},
+  {n:7, part:'Writing 1', title:'Verb Forms และ Clauses'},
+  {n:8, part:'Writing 2', title:'Word Form, Connectors, Prepositions'},
+  {n:9, part:'Writing 3 + Reading', title:'Paragraph Organization + Reading จับเวลา'},
+  {n:10, part:'Mock Test', title:'ข้อสอบจำลองเต็มฉบับ'},
+];
+
+/* ================= CONTENT ================= */
+const CONTENT = {
+1: {
+  goals:['ทบทวนโครงสร้างข้อสอบ น้ำหนักคะแนน และแผนเวลา 90 นาที','ฝึกโจทย์ผสมทุกส่วนเพื่อดูว่าตัวเองพลาดตรงไหน','เริ่มจำคำศัพท์ชุดที่ 1 ด้วยการทดสอบตัวเอง'],
+  technique:{
+    table:[['Listening & Speaking','1–20','25','15 นาที'],['Reading','21–60','50','55 นาที'],['Writing','61–80','25','15 นาที'],['ทวนข้อที่ทำเครื่องหมาย','','','5 นาที']],
+    key:['ส่วน Listening & Speaking ไม่มีเสียง เป็นการอ่านบทสนทนาแล้วเลือกประโยคเติม','ทุกข้อได้ 1.25 คะแนนเท่ากัน ติดข้อไหนเกิน 1 นาที ให้เลือกคำตอบที่ดีที่สุดไว้ ทำเครื่องหมาย แล้วไปต่อ'],
+    tip:'จดเวลาที่ต้องทำแต่ละส่วนให้เสร็จไว้มุมกระดาษ เช่น เริ่ม 9.00 → L&S เสร็จ 9.15 → Reading เสร็จ 10.10 → Writing เสร็จ 10.25'
+  },
+  vocab:[
+    ['deadline','n.','กำหนดส่ง','Nipa worked all night to meet the deadline.'],
+    ['assignment','n.','งานที่ได้รับมอบหมาย','The assignment is due on Friday.'],
+    ['concentrate (on)','v.','ตั้งสมาธิ','It is hard to concentrate on reading in a noisy café.'],
+    ['review','v./n.','ทบทวน','Review your notes the day after each class.'],
+    ['cram','v.','อ่านหนังสืออัดก่อนสอบ','Kenji crammed for the test and forgot everything a week later.'],
+    ['retain','v.','จดจำไว้ได้','Self-testing helps students retain new words.'],
+    ['comprehension','n.','ความเข้าใจ','The test checks reading comprehension.'],
+    ['require','v.','ต้องการ, กำหนดให้ต้องมี','The course requires a student ID.'],
+    ['assess','v.','ประเมิน','Teachers assess students’ progress every month.'],
+    ['motivation','n.','แรงจูงใจ','Setting a clear goal can increase your motivation.'],
+    ['consistent','adj.','สม่ำเสมอ','Consistent practice is better than one long study day.'],
+    ['procrastinate','v.','ผัดวันประกันพรุ่ง','Wichai always procrastinates until the night before a test.'],
+    ['enroll (in)','v.','ลงทะเบียนเรียน','Maria enrolled in an online writing course.'],
+    ['scholarship','n.','ทุนการศึกษา','Dao was awarded a scholarship to study in Japan.'],
+    ['improve','v.','พัฒนา, ทำให้ดีขึ้น','Your score will improve if you practice every day.'],
+  ],
+  vocabQuiz:[
+    {s:'I couldn’t ______ on my homework because my brother was playing loud music.',o:['concentrate','enroll','retain','assess'],a:0,e:'concentrate on = ตั้งสมาธิกับ ตรงกับบริบทเสียงดังรบกวน'},
+    {s:'Malee always waits until the last minute. She needs to stop ______.',o:['improving','procrastinating','requiring','reviewing'],a:1,e:'รอจนนาทีสุดท้าย = ผัดวันประกันพรุ่ง (procrastinate)'},
+    {s:'If you miss the ______, the teacher will not accept your report.',o:['scholarship','motivation','deadline','comprehension'],a:2,e:'miss the deadline = ส่งงานไม่ทันกำหนด'},
+    {s:'The university ______ all new students to attend an orientation.',o:['retains','crams','procrastinates','requires'],a:3,e:'require + คน + to V = กำหนดให้ต้องทำ'},
+    {s:'Reading English news every day is a good way to improve your reading ______.',o:['scholarship','comprehension','deadline','assignment'],a:1,e:'reading comprehension = ความเข้าใจในการอ่าน (collocation)'},
+    {s:'Wei studied a little every day instead of trying to ______ the night before the exam.',o:['enroll','require','assess','cram'],a:3,e:'cram = อ่านอัดก่อนสอบ ตรงข้ามกับเรียนวันละนิด'},
+    {s:'Kenji was awarded a ______ to study engineering in Australia.',o:['scholarship','motivation','retention','deadline'],a:0,e:'be awarded a scholarship = ได้รับทุนการศึกษา'},
+    {s:'Practicing a little every day is better than studying for ten hours once a week. Try to be ______.',o:['consistently','consistency','consistent','consist'],a:2,e:'หลัง be ต้องเป็น adjective → consistent'},
+  ],
+  practice:{
+    title:'Warm-up Set (12 ข้อ)', minutes:12,
+    groups:[
+      {label:'Listening & Speaking: Short Conversation', type:'dialogue', situation:'Two friends planning to study together',
+       lines:[['Kitti','Hey Yuki, are you free this Saturday? ____(1)____'],['Yuki','I’d love to, but I have a piano lesson in the morning.'],['Kitti','____(2)____'],['Yuki','Afternoon works. Where should we meet?'],['Kitti','How about the city library? ____(3)____'],['Yuki','Good idea. It gets crowded after lunch. Let’s meet at one, then.'],['Kitti','____(4)____ I’ll bring my notes from last week.'],['Yuki','Great. See you there!']],
+       items:[
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['What did you do last weekend?','Do you want to study for the English test together?','I’m busy this Saturday, too.','Have you finished the test yet?'],a:1,
+         e:'ยูกิตอบ "I’d love to, but..." ซึ่งใช้ตอบคำชวน จึงต้องเป็นการชวนทำอะไรด้วยกัน',x:['ถามเรื่องอดีต ตอบด้วย I’d love to ไม่ได้','ถ้าคิตติไม่ว่าง จะไม่มีการนัดต่อ','ไม่ใช่คำชวน']},
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['Then let’s forget about it.','Why do you take piano lessons?','I don’t like music very much.','No problem. How about in the afternoon instead?'],a:3,
+         e:'ยูกิตอบ "Afternoon works." แปลว่าคิตติเพิ่งเสนอช่วงบ่าย',x:['ยกเลิกนัด แต่บทสนทนายังนัดต่อ','ถามเหตุผล ไม่ได้เสนอเวลา','ไม่เกี่ยวกับการนัด']},
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ปานกลาง',o:['We should get there early to find a table.','It closes at noon on Saturdays.','I’ve never been there before.','The coffee there is terrible.'],a:0,
+         e:'ยูกิตอบว่า "It gets crowded after lunch" จึงเห็นด้วยกับการไปเร็วเพื่อหาโต๊ะ',x:['ขัดกับการนัดตอน 13.00 น.','ไม่เชื่อมกับเรื่องคนเยอะ','ไม่เชื่อมกับ "Good idea"']},
+        {sec:'L&S',tag:'สำนวน',d:'ปานกลาง',o:['That’s out of the question.','Never mind.','It’s a deal.','Same to you.'],a:2,
+         e:'"It’s a deal." = ตกลงตามนั้น ใช้ยืนยันนัดหมาย แล้วต่อด้วยสิ่งที่จะเตรียมไป',x:['= เป็นไปไม่ได้ ปฏิเสธนัด','= ไม่เป็นไร ใช้ปัดเรื่องทิ้ง','ใช้ตอบคำอวยพร']}
+       ]},
+      {label:'Reading: Advertisement', type:'text', html:'<h3 style="text-align:center">SUNRISE SWIM SCHOOL</h3><p style="text-align:center"><i>Summer Courses for Teens (13–17)</i></p><ul class="clean"><li>Beginner and Improver classes: 8 lessons, 2,400 baht</li><li>Classes: Mon / Wed / Fri, 7:00–8:00 a.m.</li><li>Small groups: no more than 6 students per coach</li><li>Register before May 1 and get 10% off</li><li>Bring your own goggles. Towels provided.</li></ul><p style="text-align:center"><b>Sign up at the front desk or on our website.</b></p>',
+       items:[
+        {sec:'Reading',tag:'กลุ่มเป้าหมาย',d:'ง่าย',stem:'Who is this advertisement for?',o:['Children under 10','Adults who want to become coaches','Teenagers who want to learn or improve swimming','Professional swimmers'],a:2,
+         e:'"Summer Courses for Teens (13–17)" และมีคลาส Beginner/Improver',x:['ระบุอายุ 13–17','ไม่ได้รับสมัครโค้ช','เป็นคลาสพื้นฐานและพัฒนา ไม่ใช่มืออาชีพ']},
+        {sec:'Reading',tag:'NOT',d:'ปานกลาง',stem:'Which of the following does the school NOT provide?',o:['Goggles','Towels','A coach','Small groups'],a:0,
+         e:'"Bring your own goggles." ผู้เรียนต้องนำแว่นตาว่ายน้ำมาเอง',x:null,xs:['','Towels provided','มี coach','ไม่เกิน 6 คนต่อโค้ช']},
+        {sec:'Reading',tag:'คำนวณ',d:'ยาก',stem:'Pim registers on April 20. How much does she pay for the course?',o:['2,400 baht','240 baht','2,640 baht','2,160 baht'],a:3,
+         e:'สมัครก่อน 1 พ.ค. ได้ลด 10%: 2,400 − 240 = 2,160 บาท',x:['ลืมส่วนลด','เป็นจำนวนส่วนลด ไม่ใช่ราคาที่จ่าย','บวกส่วนลดแทนการหัก']}
+       ]},
+      {label:'Writing: Text Completion', type:'text', html:'<p>Street food is an important part of Thai culture. Many tourists say that tasting local dishes ____(8)____ the highlight of their trip. However, food stalls that ____(9)____ on busy roads can face problems with hygiene and traffic. ____(10)____, some cities have created special night-market areas. These areas are cleaner and safer, and they still keep the lively atmosphere ____(11)____ visitors love.</p>',
+       items:[
+        {sec:'Writing',tag:'Subject-verb agreement',d:'ปานกลาง',o:['are','is','being','have been'],a:1,
+         e:'ประธานคือ "tasting local dishes" (V-ing เป็นประธาน) นับเป็นเอกพจน์ → is',x:['ใช้กับประธานพหูพจน์ ⚠️ หลอกด้วย dishes','ไม่ใช่กริยาแท้','ใช้กับประธานพหูพจน์']},
+        {sec:'Writing',tag:'Passive voice',d:'ปานกลาง',o:['locate','locating','are locating','are located'],a:3,
+         e:'แผงอาหาร "ถูกตั้งอยู่" บนถนน ใช้ passive → are located',x:['active: แผงอาหารไปค้นหาตำแหน่ง','ไม่ใช่กริยาแท้หลัง that','active ความหมายผิด']},
+        {sec:'Writing',tag:'Connector',d:'ยาก',o:['To solve this problem','As a result of','In spite of this','For instance'],a:0,
+         e:'ประโยคนี้บอกวิธีแก้ปัญหาสุขอนามัยและการจราจรที่เพิ่งพูดถึง',x:['ต้องตามด้วยคำนาม ไม่ใช่จุลภาคแล้วประโยค','บอกความขัดแย้ง ซึ่งไม่ตรงความหมาย','ไม่ใช่ตัวอย่างของปัญหา']},
+        {sec:'Writing',tag:'Relative clause',d:'ง่าย',o:['who','what','that','where'],a:2,
+         e:'"the lively atmosphere that visitors love" ใช้ that แทนสิ่งของที่เป็นกรรม',x:['ใช้กับคน','what ไม่ใช้หลังคำนาม','where ใช้กับสถานที่ และต้องมีประโยคสมบูรณ์ตามหลัง']}
+       ]},
+      {label:'Writing: Paragraph Organization', type:'text', html:'<p><b>A.</b> For example, a five-minute walk after lunch can help the brain stay alert in the afternoon.<br><b>B.</b> Short breaks are an important part of effective studying.<br><b>C.</b> Therefore, students should plan small breaks instead of studying for hours without stopping.<br><b>D.</b> Many students find that their attention starts to drop after about 45 minutes of continuous work.</p>',
+       items:[
+        {sec:'Writing',tag:'Paragraph organization',d:'ง่าย',stem:'Choose the best order of the sentences.',o:['D-B-A-C','B-D-A-C','B-C-D-A','B-A-C-D'],a:1,
+         e:'B เป็นใจความหลัก → D ให้เหตุผล → A ยกตัวอย่าง (For example) → C สรุป (Therefore)',x:['ใจความหลัก B ต้องมาก่อน','Therefore เป็นข้อสรุป ควรอยู่ท้าย','ตัวอย่างต้องตามหลังเหตุผล D']}
+       ]}
+    ]
+  },
+  homework:['Vocabulary Set 1: ทำบัตรคำ 15 คำ และทดสอบตัวเองในแท็บคำศัพท์','ทำ Warm-up Set ในโหมดฝึกให้ได้ 10/12 ขึ้นไป','บันทึกข้อที่ผิดลง Error Log ในเอกสาร']
+}
+};
+
+/* ================= STORAGE (per browser) ================= */
+const store = {
+  get(k,d){try{const v=localStorage.getItem('alv82:'+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('alv82:'+k,JSON.stringify(v))}catch(e){}}
+};
+
+/* ================= DATES ================= */
+function unlockDate(n){
+  const s = COURSE.unlock[n] || null;
+  if (s) return new Date(s+'T00:00:00');
+  const d = new Date(COURSE.start+'T00:00:00'); d.setDate(d.getDate()+n-1); return d;
+}
+function isOpen(n){ return COURSE.openAll || new Date() >= unlockDate(n); }
+const thDate = d => d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
+
+/* ================= HELPERS ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const L = ['A','B','C','D'];
+const app = $('#app');
+const footer = '<footer>ออกแบบโดย Suparat Walakanon · The International Studies Center, RMUTI, Surin Campus</footer>';
+
+/* ================= HOME ================= */
+function renderHome(){
+  const done = store.get('done',{});
+  app.innerHTML = `
+  <div class="topbar"><span class="brand"><span class="dot"></span>A-Level English 82</span><span class="eyebrow">เตรียมสอบ 10 วัน</span></div>
+  <section class="sheet">
+    <div><p class="eyebrow">ข้อสอบ A-Level 82 Eng</p><h1>เตรียมสอบภาษาอังกฤษ A-Level ทีละวัน</h1></div>
+    <div class="strip" role="img" aria-label="สัดส่วนข้อสอบ 3 ส่วน">
+      <div class="seg"><b>Listening &amp; Speaking</b><span>20 ข้อ · 25 คะแนน · 15'</span></div>
+      <div class="seg"><b>Reading</b><span>40 ข้อ · 50 คะแนน · 55'</span></div>
+      <div class="seg"><b>Writing</b><span>20 ข้อ · 25 คะแนน · 15'</span></div>
+    </div>
+    <div class="facts"><span><strong>80</strong> ข้อ</span><span><strong>90</strong> นาที</span><span>ปรนัย <strong>4</strong> ตัวเลือก</span><span>ข้อละ <strong>1.25</strong> คะแนน</span></div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2>ตารางเรียน</h2>
+    <p class="muted">เนื้อหาแต่ละวันเปิดตามวันที่กำหนด ทำแบบฝึกจบแล้ววงกลมจะถูกระบายทึบ</p>
+    <div class="days">${DAYS.map(d=>{
+      const open = isOpen(d.n), ready = !!CONTENT[d.n], fin = !!done[d.n];
+      const st = !open ? `เปิด ${thDate(unlockDate(d.n))}` : fin ? 'ทำแล้ว' : ready ? 'เปิดแล้ว' : 'กำลังจัดทำ';
+      const cls = ['day', !open||!ready ? 'locked':'', fin?'done':''].join(' ');
+      return `<button class="${cls}" data-day="${d.n}" ${!open||!ready?'aria-disabled="true"':''}>
+        <span class="bub">${String(d.n).padStart(2,'0')}</span>
+        <span><span class="s">${esc(d.part)}</span><br><span class="t">${esc(d.title)}</span>
+        <span class="state ${fin?'done':open&&ready?'open':''}" style="display:block">${st}</span></span></button>`;}).join('')}</div>
+  </section>${footer}`;
+  app.querySelectorAll('.day').forEach(b=>b.addEventListener('click',()=>{
+    const n=+b.dataset.day; if(isOpen(n)&&CONTENT[n]) location.hash='day'+n; }));
+}
+
+/* ================= DAY ================= */
+let dayState = {};
+function renderDay(n){
+  const meta = DAYS[n-1], C = CONTENT[n];
+  if(!isOpen(n) || !C){
+    app.innerHTML = `<div class="topbar"><button class="back" id="bk">← ตารางเรียน</button></div>
+      <div class="card lock"><p class="eyebrow">วันที่ ${n}</p><h1>${esc(meta.title)}</h1>
+      <p>${!isOpen(n)?`เนื้อหาวันนี้เปิดวันที่ <b>${thDate(unlockDate(n))}</b>`:'เนื้อหาวันนี้กำลังจัดทำ'}</p></div>${footer}`;
+    $('#bk').onclick=()=>location.hash='home'; return;
+  }
+  dayState = {n, tab: dayState.n===n ? dayState.tab : 'tech'};
+  app.innerHTML = `<div class="topbar"><button class="back" id="bk">← ตารางเรียน</button><span class="eyebrow">วันที่ ${n} / 10</span></div>
+    <header style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow">${esc(meta.part)}</p><h1>${esc(meta.title)}</h1></header>
+    <div class="tabs" role="tablist">
+      ${[['tech','เทคนิค'],['vocab','คำศัพท์'],['practice','แบบฝึก'],['hw','การบ้าน']].map(([k,t])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${dayState.tab===k}">${t}</button>`).join('')}
+    </div><div id="panel" class="panel"></div>${footer}`;
+  $('#bk').onclick=()=>location.hash='home';
+  app.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{dayState.tab=b.dataset.tab;app.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));drawPanel();});
+  drawPanel();
+}
+function drawPanel(){
+  const C = CONTENT[dayState.n], P = $('#panel');
+  if(dayState.tab==='tech'){
+    const T=C.technique;
+    P.innerHTML = `<div class="card"><h3>เป้าหมายวันนี้</h3><ul class="clean" style="margin-top:8px">${C.goals.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></div>
+     <div class="tbl"><table><thead><tr><th>ส่วน</th><th>ข้อ</th><th>คะแนน</th><th>เวลาแนะนำ</th></tr></thead><tbody>
+     ${T.table.map(r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num">${r[3]}</td></tr>`).join('')}</tbody></table></div>
+     <div class="call key"><b>📌 จำไว้</b><ul class="clean" style="margin-top:4px">${T.key.map(k=>`<li>${esc(k)}</li>`).join('')}</ul></div>
+     <div class="call"><b>💡 เคล็ดลับ</b> ${esc(T.tip)}</div>`;
+  } else if(dayState.tab==='vocab') drawVocab(P,C);
+  else if(dayState.tab==='practice') drawPractice(P,C);
+  else P.innerHTML = `<div class="card"><h3>การบ้านวันที่ ${dayState.n}</h3><ul class="clean" style="margin-top:8px">${C.homework.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div>`;
+}
+
+/* ---------- vocab: flashcards + quiz ---------- */
+function drawVocab(P,C){
+  let i=0, flip=false;
+  P.innerHTML = `<div class="fc-wrap"><p class="muted">แตะการ์ดเพื่อดูความหมาย ลองนึกก่อนพลิก</p>
+    <button class="fc" id="fc"></button>
+    <div class="row"><button class="btn" id="pv">ก่อนหน้า</button><span class="eyebrow" id="ct"></span><button class="btn" id="nx">ถัดไป</button></div></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px"><h3>ทดสอบคำศัพท์ (${C.vocabQuiz.length} ข้อ)</h3><div id="vq" style="display:flex;flex-direction:column;gap:16px"></div></div>`;
+  const show=()=>{const v=C.vocab[i];
+    $('#fc').innerHTML = flip ? `<span class="m">${esc(v[2])}</span><span class="ex">${esc(v[3])}</span>` : `<span class="w">${esc(v[0])}</span><span class="pos">${esc(v[1])}</span>`;
+    $('#ct').textContent=`${i+1} / ${C.vocab.length}`;};
+  $('#fc').onclick=()=>{flip=!flip;show()};
+  $('#pv').onclick=()=>{i=(i-1+C.vocab.length)%C.vocab.length;flip=false;show()};
+  $('#nx').onclick=()=>{i=(i+1)%C.vocab.length;flip=false;show()};
+  show();
+  const vq=$('#vq');
+  C.vocabQuiz.forEach((q,k)=>{
+    const d=document.createElement('div'); d.className='q';
+    d.innerHTML=`<p class="stem"><span class="n">${k+1}.</span>${esc(q.s)}</p><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}"><span class="b">${L[j]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="exp" hidden></div>`;
+    d.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      const j=+b.dataset.j;
+      d.querySelectorAll('.opt').forEach((x,xi)=>{x.disabled=true; if(xi===q.a)x.classList.add('right'); if(xi===j&&j!==q.a)x.classList.add('wrong'); if(xi===j)x.classList.add('sel');});
+      const e=d.querySelector('.exp'); e.hidden=false; e.innerHTML=`<b>${j===q.a?'ถูกต้อง':'คำตอบคือ '+L[q.a]}</b><span>${esc(q.e)}</span>`;
+    });
+    vq.appendChild(d);
+  });
+}
+
+/* ---------- practice: practice mode / timed mode ---------- */
+let P_state=null, timerId=null;
+function drawPractice(P,C){
+  const pr=C.practice, best=store.get('best'+dayState.n,null);
+  clearInterval(timerId);
+  P.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:12px">
+    <h3>${esc(pr.title)}</h3>
+    <p class="muted">ชุดฝึกนี้เป็นโจทย์ใหม่ ไม่ซ้ำกับเอกสารในห้องเรียน${best?` · คะแนนดีที่สุดในเครื่องนี้: <b>${best}/${countItems(pr)}</b>`:''}</p>
+    <div class="mode"><button class="btn primary" id="mp">โหมดฝึก (เห็นเฉลยทันที)</button><button class="btn" id="mt">โหมดจับเวลา ${pr.minutes} นาที</button></div></div>`;
+  $('#mp').onclick=()=>startSet(P,C,'practice');
+  $('#mt').onclick=()=>startSet(P,C,'timed');
+}
+const countItems = pr => pr.groups.reduce((a,g)=>a+g.items.length,0);
+function startSet(P,C,mode){
+  const pr=C.practice; P_state={mode,ans:{},done:false,left:pr.minutes*60};
+  let n=0;
+  const html=pr.groups.map(g=>{
+    const pass = g.type==='dialogue'
+      ? `<div class="passage"><span class="sit">Situation: ${esc(g.situation)}</span><div class="dl">${g.lines.map(l=>`<b>${esc(l[0])}:</b><span>${esc(l[1])}</span>`).join('')}</div></div>`
+      : `<div class="passage">${g.html}</div>`;
+    const qs=g.items.map(it=>{n++; it._n=n;
+      return `<div class="q" data-n="${n}"><p class="stem"><span class="n">${n}.</span>${it.stem?esc(it.stem):''}</p>
+        <div class="opts">${it.o.map((o,j)=>`<button class="opt" data-j="${j}"><span class="b">${L[j]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="exp" hidden></div></div>`;}).join('');
+    return `<section style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">${esc(g.label)}</p>${pass}${qs}</section>`;
+  }).join('');
+  P.innerHTML=`<div class="sticky"><span class="eyebrow">${mode==='timed'?'โหมดจับเวลา':'โหมดฝึก'}</span>
+    ${mode==='timed'?'<span class="timer" id="tm"></span>':''}<button class="btn primary" id="sub">${mode==='timed'?'ส่งคำตอบ':'ดูสรุปผล'}</button></div>${html}<div id="res"></div>`;
+  const items=pr.groups.flatMap(g=>g.items);
+  P.querySelectorAll('.q').forEach(qd=>{
+    const it=items[+qd.dataset.n-1];
+    qd.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      if(P_state.done) return;
+      const j=+b.dataset.j; P_state.ans[it._n]=j;
+      if(mode==='practice'){ reveal(qd,it,j); }
+      else qd.querySelectorAll('.opt').forEach((x,xi)=>x.classList.toggle('sel',xi===j));
+    });
+  });
+  $('#sub').onclick=()=>finish(P,C,items);
+  if(mode==='timed'){
+    const tick=()=>{const m=Math.floor(P_state.left/60),s=P_state.left%60; $('#tm').textContent=`${m}:${String(s).padStart(2,'0')}`;
+      if(P_state.left<=0){finish(P,C,items);return;} P_state.left--;};
+    tick(); timerId=setInterval(tick,1000);
+  }
+}
+function reveal(qd,it,j){
+  qd.querySelectorAll('.opt').forEach((x,xi)=>{x.disabled=true;x.classList.toggle('sel',xi===j); if(xi===it.a)x.classList.add('right'); if(xi===j&&j!==it.a)x.classList.add('wrong');});
+  const wrongs = it.o.map((o,k)=>k).filter(k=>k!==it.a);
+  const why = it.x ? wrongs.map((k,ix)=>`<li>${L[k]} ผิด: ${esc(it.x[ix])}</li>`).join('')
+                   : wrongs.map(k=>`<li>${L[k]} มีในโฆษณา: ${esc(it.xs[k])}</li>`).join('');
+  const e=qd.querySelector('.exp'); e.hidden=false;
+  e.innerHTML=`<b>${j===it.a?'ถูกต้อง':j===undefined?'ไม่ได้ตอบ · คำตอบคือ '+L[it.a]:'คำตอบคือ '+L[it.a]}</b><span>${esc(it.e)}</span><ul class="clean">${why}</ul><span class="muted" style="font-size:.85rem">${esc(it.sec)} · ${esc(it.tag)} · ระดับ${esc(it.d)}</span>`;
+}
+function finish(P,C,items){
+  if(P_state.done) return; P_state.done=true; clearInterval(timerId);
+  let score=0; const bySec={};
+  items.forEach(it=>{const ok=P_state.ans[it._n]===it.a; if(ok)score++; bySec[it.sec]=bySec[it.sec]||[0,0]; bySec[it.sec][1]++; if(ok)bySec[it.sec][0]++;});
+  P.querySelectorAll('.q').forEach(qd=>{const it=items[+qd.dataset.n-1]; reveal(qd,it,P_state.ans[it._n]);});
+  const best=store.get('best'+dayState.n,0); if(score>best) store.set('best'+dayState.n,score);
+  const done=store.get('done',{}); done[dayState.n]=true; store.set('done',done);
+  const used = P_state.mode==='timed' ? ` · ใช้เวลา ${Math.round((C.practice.minutes*60-Math.max(P_state.left,0))/60)} นาที` : '';
+  $('#res').innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:10px;margin-top:8px"><p class="eyebrow">สรุปผล${used}</p>
+    <p class="score">${score} / ${items.length}</p>
+    <div class="tbl"><table><thead><tr><th>ส่วน</th><th>ถูก</th></tr></thead><tbody>${Object.entries(bySec).map(([k,v])=>`<tr><td>${k}</td><td class="num">${v[0]} / ${v[1]}</td></tr>`).join('')}</tbody></table></div>
+    <p class="muted">อ่านคำอธิบายของข้อที่ผิด แล้วบันทึกลง Error Log</p>
+    <div class="row" style="justify-content:flex-start"><button class="btn primary" id="again">ทำใหม่</button></div></div>`;
+  $('#again').onclick=()=>drawPractice(P,C);
+  const s=$('#sub'); if(s){s.disabled=true;}
+  $('#res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ================= ROUTER ================= */
+function route(){
+  clearInterval(timerId);
+  const m=(location.hash||'').match(/^#day(\d+)$/);
+  if(m && +m[1]>=1 && +m[1]<=10) renderDay(+m[1]); else renderHome();
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+
+</body>
+</html>

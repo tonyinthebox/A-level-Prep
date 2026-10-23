@@ -1,0 +1,16 @@
+# A-Level English 82 Prep
+
+เว็บเตรียมสอบ A-Level ภาษาอังกฤษ (82 Eng) หลักสูตร 10 วัน วันละ 2 ชั่วโมง เนื้อหาเปิดตามวันที่กำหนด
+
+## ตั้งค่าวันเปิดเนื้อหา
+
+แก้ที่ `COURSE` บนสุดของ `<script>` ใน `index.html`
+
+- `start`: วันเปิดวันที่ 1 (ค.ศ. รูปแบบ YYYY-MM-DD)
+- `unlock`: กำหนดวันเปิดรายวัน เช่น `{3: '2026-11-05'}`
+- `openAll`: `true` = เปิดทุกวันทันที
+
+คะแนนของผู้เรียนบันทึกในเบราว์เซอร์ของผู้เรียนแต่ละคนเท่านั้น
+
+---
+Designed by Suparat Walakanon, The International Studies Center, RMUTI, Surin Campus
