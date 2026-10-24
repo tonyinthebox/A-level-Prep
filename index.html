@@ -15,6 +15,7 @@
   --graphite:#2C3436; --ok:#1C7A4A; --ok-soft:#E2F2E8; --bad:#B02E25; --bad-soft:#FBE6E3;
   --tip:#FFF3C9; --tip-line:#C9A400; --key:#E4EDF9; --key-line:#2E5C9A;
   --seg1:#0D6A64; --seg2:#3E8E7E; --seg3:#7FB3A3;
+  --acc-s:68%; --acc-l:34%; --soft-s:70%; --soft-l:94%;
   --display:'Bai Jamjuree','Sarabun','Leelawadee UI',Tahoma,sans-serif;
   --body:'Sarabun','Leelawadee UI',Tahoma,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
@@ -24,14 +25,18 @@
   --accent:#55BDB3; --accent-ink:#0B1413; --accent-soft:#16312F;
   --graphite:#DCE3E1; --ok:#62C690; --ok-soft:#163024; --bad:#F2837A; --bad-soft:#3A1D1A;
   --tip:#352F17; --tip-line:#C9A400; --key:#1B2638; --key-line:#7FA6E0;
-  --seg1:#55BDB3; --seg2:#3E8E7E; --seg3:#2F665C; color-scheme:dark;}}
+  --seg1:#55BDB3; --seg2:#3E8E7E; --seg3:#2F665C; --acc-l:70%; --soft-s:32%; --soft-l:19%; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --paper:#111716; --surface:#192120; --ink:#E5ECEA; --muted:#9BA9A7; --line:#2D3A38;
   --accent:#55BDB3; --accent-ink:#0B1413; --accent-soft:#16312F;
   --graphite:#DCE3E1; --ok:#62C690; --ok-soft:#163024; --bad:#F2837A; --bad-soft:#3A1D1A;
   --tip:#352F17; --tip-line:#C9A400; --key:#1B2638; --key-line:#7FA6E0;
-  --seg1:#55BDB3; --seg2:#3E8E7E; --seg3:#2F665C; color-scheme:dark;}
+  --seg1:#55BDB3; --seg2:#3E8E7E; --seg3:#2F665C; --acc-l:70%; --soft-s:32%; --soft-l:19%; color-scheme:dark;}
 *{box-sizing:border-box}
+/* rainbow: each day carries its own hue (--h) */
+.hue{--accent:hsl(var(--h) var(--acc-s) var(--acc-l));--accent-soft:hsl(var(--h) var(--soft-s) var(--soft-l))}
+.rainbow{height:6px;border-radius:3px;background:linear-gradient(90deg,hsl(0 75% 55%),hsl(28 88% 55%),hsl(48 92% 52%),hsl(110 50% 45%),hsl(185 65% 42%),hsl(225 65% 55%),hsl(275 55% 58%))}
+.seg.r1{background:hsl(8 66% 40%)} .seg.r2{background:hsl(160 60% 30%)} .seg.r3{background:hsl(250 48% 45%)}
 body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
 .wrap{max-width:880px;margin:0 auto;padding-block:20px 48px;display:flex;flex-direction:column;gap:28px}
@@ -47,14 +52,13 @@ button{font:inherit;cursor:pointer}
 .muted{color:var(--muted)}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{font-family:var(--display);font-weight:700;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
-.brand .dot{width:22px;height:22px;border-radius:50%;background:var(--graphite);box-shadow:inset 0 0 0 3px var(--paper),0 0 0 2px var(--graphite)}
+.brand .dot{width:22px;height:22px;border-radius:50%;background:conic-gradient(hsl(0 75% 55%),hsl(48 92% 52%),hsl(120 50% 45%),hsl(200 70% 48%),hsl(275 55% 58%),hsl(0 75% 55%));box-shadow:inset 0 0 0 5px var(--paper)}
 .back{background:none;border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
 
 /* answer-sheet strip */
 .sheet{display:flex;flex-direction:column;gap:10px}
 .strip{display:grid;grid-template-columns:20fr 40fr 20fr;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
 .seg{padding:12px 12px 10px;color:#fff;min-width:0}
-.seg:nth-child(1){background:var(--seg1)} .seg:nth-child(2){background:var(--seg2)} .seg:nth-child(3){background:var(--seg3);color:#fff}
 .seg b{font-family:var(--display);display:block;font-size:1rem}
 .seg span{font-family:var(--mono);font-size:.8rem;opacity:.95}
 .facts{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.95rem}
@@ -66,7 +70,9 @@ button{font:inherit;cursor:pointer}
 .day:hover:not(.locked){border-color:var(--accent)}
 .day.locked{opacity:.62;cursor:not-allowed}
 .bub{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--graphite);display:grid;place-items:center;font-family:var(--mono);font-size:.95rem}
-.day.done .bub{background:var(--graphite);color:var(--paper)}
+.day .bub{border-color:var(--accent);color:var(--accent)}
+.day.done .bub{background:var(--accent);color:var(--accent-ink)}
+.day{border-top:4px solid var(--accent)}
 .day.locked .bub{border-style:dashed}
 .day .t{font-family:var(--display);font-weight:600;line-height:1.3}
 .day .s{font-size:.85rem;color:var(--muted)}
@@ -151,6 +157,7 @@ footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padd
    openAll : true = เปิดทุกวันทันที                                         */
 const COURSE = { start: '2026-10-24', unlock: {}, openAll: false };
 
+const HUES = [0,24,44,95,145,175,200,222,262,295];   // red → violet, one per day
 const DAYS = [
   {n:1, part:'ภาพรวม + ทดสอบ', title:'ภาพรวมข้อสอบ และทดสอบก่อนเรียน'},
   {n:2, part:'Listening & Speaking 1', title:'Short Conversations'},
@@ -202,6 +209,7 @@ const CONTENT = {
   ],
   practice:{
     title:'Warm-up Set (12 ข้อ)', minutes:12,
+    strategy:['ทำตามลำดับเหมือนข้อสอบจริง: บทสนทนา → โฆษณา → เติมคำ → เรียงประโยค','<b>บทสนทนา:</b> อ่านประโยคหลังช่องว่างก่อนเสมอ แล้วเลือกตัวที่รับกันได้','<b>โฆษณา:</b> อ่านคำถามก่อน แล้วสแกนหาตัวเลข ราคา และเงื่อนไข เช่น ส่วนลดหรือสิ่งที่ต้องนำมาเอง','<b>เติมคำ:</b> ดูโครงสร้างประโยคก่อนความหมาย หาประธานและกริยาแท้ของประโยคให้ได้','<b>เรียงประโยค:</b> หาประโยคใจความหลักที่ไม่ขึ้นต้นด้วยคำเชื่อม แล้วใช้ตัดตัวเลือกที่ผิด'],
     groups:[
       {label:'Listening & Speaking: Short Conversation', type:'dialogue', situation:'Two friends planning to study together',
        lines:[['Kitti','Hey Yuki, are you free this Saturday? ____(1)____'],['Yuki','I’d love to, but I have a piano lesson in the morning.'],['Kitti','____(2)____'],['Yuki','Afternoon works. Where should we meet?'],['Kitti','How about the city library? ____(3)____'],['Yuki','Good idea. It gets crowded after lunch. Let’s meet at one, then.'],['Kitti','____(4)____ I’ll bring my notes from last week.'],['Yuki','Great. See you there!']],
@@ -301,6 +309,7 @@ const CONTENT = {
   ],
   practice:{
     title:'Short Conversations Set (12 ข้อ)', minutes:9,
+    strategy:['อ่าน Situation ก่อน เพื่อรู้ว่าใครคุยกับใคร และควรใช้ภาษาระดับไหน','ทุกช่องว่าง อ่านประโยค <b>หลัง</b> ช่องว่างก่อน แล้วถามตัวเองว่า "ประโยคนี้ตอบอะไร"','ตัดตัวเลือกที่ไม่รับกับประโยคถัดไปออกก่อน แม้จะถูกไวยากรณ์ก็ตาม','ระวังสำนวนที่ใช้ผิดสถานการณ์ เช่น ตอบข่าวร้ายด้วย Lucky you!','เวลาเฉลี่ยข้อละ 45 วินาที (12 ข้อ ≈ 9 นาที) ติดข้อไหนให้เลือกไว้ก่อนแล้วไปต่อ'],
     groups:[
       {label:'Short Conversation 1', type:'dialogue', situation:'At a bubble tea shop',
        lines:[['Staff','Hi! What can I get for you today?'],['Nipa','____(1)____'],['Staff','Sure. How sweet would you like it? We have 0, 50, and 100 percent.'],['Nipa','50 percent, please. Oh, and ____(2)____'],['Staff','____(3)____'],['Nipa','Thanks. How much is it?'],['Staff','65 baht. ____(4)____'],['Nipa','QR code, please. Here you go.']],
@@ -369,16 +378,18 @@ const footer = '<footer>ออกแบบโดย Suparat Walakanon · The Int
 /* ================= HOME ================= */
 function renderHome(){
   const done = store.get('done',{});
+  app.classList.remove('hue'); app.style.removeProperty('--h');
   app.innerHTML = `
+  <div class="rainbow" aria-hidden="true"></div>
   <div class="topbar"><span class="brand"><span class="dot"></span>A-Level English 82</span>${store.get('preview',false)
     ? '<button class="chip" id="exitPrev">โหมดผู้สอน: เปิดทุกวัน · ออก</button>'
     : '<span class="eyebrow">เตรียมสอบ 10 วัน</span>'}</div>
   <section class="sheet">
     <div><p class="eyebrow">ข้อสอบ A-Level 82 Eng</p><h1>เตรียมสอบภาษาอังกฤษ A-Level ทีละวัน</h1></div>
     <div class="strip" role="img" aria-label="สัดส่วนข้อสอบ 3 ส่วน">
-      <div class="seg"><b>Listening &amp; Speaking</b><span>20 ข้อ · 25 คะแนน · 15'</span></div>
-      <div class="seg"><b>Reading</b><span>40 ข้อ · 50 คะแนน · 55'</span></div>
-      <div class="seg"><b>Writing</b><span>20 ข้อ · 25 คะแนน · 15'</span></div>
+      <div class="seg r1"><b>Listening &amp; Speaking</b><span>20 ข้อ · 25 คะแนน · 15'</span></div>
+      <div class="seg r2"><b>Reading</b><span>40 ข้อ · 50 คะแนน · 55'</span></div>
+      <div class="seg r3"><b>Writing</b><span>20 ข้อ · 25 คะแนน · 15'</span></div>
     </div>
     <div class="facts"><span><strong>80</strong> ข้อ</span><span><strong>90</strong> นาที</span><span>ปรนัย <strong>4</strong> ตัวเลือก</span><span>ข้อละ <strong>1.25</strong> คะแนน</span></div>
   </section>
@@ -388,8 +399,8 @@ function renderHome(){
     <div class="days">${DAYS.map(d=>{
       const open = isOpen(d.n), ready = !!CONTENT[d.n], fin = !!done[d.n];
       const st = !open ? `เปิด ${thDate(unlockDate(d.n))}` : fin ? 'ทำแล้ว' : ready ? 'เปิดแล้ว' : 'กำลังจัดทำ';
-      const cls = ['day', !open||!ready ? 'locked':'', fin?'done':''].join(' ');
-      return `<button class="${cls}" data-day="${d.n}" ${!open||!ready?'aria-disabled="true"':''}>
+      const cls = ['day','hue', !open||!ready ? 'locked':'', fin?'done':''].join(' ');
+      return `<button class="${cls}" style="--h:${HUES[d.n-1]}" data-day="${d.n}" ${!open||!ready?'aria-disabled="true"':''}>
         <span class="bub">${String(d.n).padStart(2,'0')}</span>
         <span><span class="s">${esc(d.part)}</span><br><span class="t">${esc(d.title)}</span>
         <span class="state ${fin?'done':open&&ready?'open':''}" style="display:block">${st}</span></span></button>`;}).join('')}</div>
@@ -403,15 +414,16 @@ function renderHome(){
 let dayState = {};
 function renderDay(n){
   const meta = DAYS[n-1], C = CONTENT[n];
+  app.classList.add('hue'); app.style.setProperty('--h', HUES[n-1]);
   if(!isOpen(n) || !C){
-    app.innerHTML = `<div class="topbar"><button class="back" id="bk">← ตารางเรียน</button></div>
+    app.innerHTML = `<div class="rainbow" aria-hidden="true"></div><div class="topbar"><button class="back" id="bk">← ตารางเรียน</button></div>
       <div class="card lock"><p class="eyebrow">วันที่ ${n}</p><h1>${esc(meta.title)}</h1>
       <p>${!isOpen(n)?`เนื้อหาวันนี้เปิดวันที่ <b>${thDate(unlockDate(n))}</b>`:'เนื้อหาวันนี้กำลังจัดทำ'}</p></div>${footer}`;
     $('#bk').onclick=()=>location.hash='home'; return;
   }
   dayState = {n, tab: dayState.n===n ? dayState.tab : 'tech'};
-  app.innerHTML = `<div class="topbar"><button class="back" id="bk">← ตารางเรียน</button><span class="eyebrow">วันที่ ${n} / 10</span></div>
-    <header style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow">${esc(meta.part)}</p><h1>${esc(meta.title)}</h1></header>
+  app.innerHTML = `<div class="rainbow" aria-hidden="true"></div><div class="topbar"><button class="back" id="bk">← ตารางเรียน</button><span class="eyebrow">วันที่ ${n} / 10</span></div>
+    <header style="display:flex;flex-direction:column;gap:6px"><p class="eyebrow" style="color:var(--accent)">${esc(meta.part)}</p><h1>${esc(meta.title)}</h1></header>
     <div class="tabs" role="tablist">
       ${[['tech','เทคนิค'],['vocab','คำศัพท์'],['practice','แบบฝึก'],['hw','การบ้าน']].map(([k,t])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${dayState.tab===k}">${t}</button>`).join('')}
     </div><div id="panel" class="panel"></div>${footer}`;
@@ -499,6 +511,7 @@ function drawPractice(P,C){
   P.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:12px">
     <h3>${esc(pr.title)}</h3>
     <p class="muted">ชุดฝึกนี้เป็นโจทย์ใหม่ ไม่ซ้ำกับเอกสารในห้องเรียน${best?` · คะแนนดีที่สุดในเครื่องนี้: <b>${best}/${countItems(pr)}</b>`:''}</p>
+    ${pr.strategy?`<div class="call key"><b>🧭 กลยุทธ์ทำชุดนี้</b><ul class="clean" style="margin-top:4px">${pr.strategy.map(s=>`<li>${s}</li>`).join('')}</ul></div>`:''}
     <div class="mode"><button class="btn primary" id="mp">โหมดฝึก (เห็นเฉลยทันที)</button><button class="btn" id="mt">โหมดจับเวลา ${pr.minutes} นาที</button></div></div>`;
   $('#mp').onclick=()=>startSet(P,C,'practice');
   $('#mt').onclick=()=>startSet(P,C,'timed');
