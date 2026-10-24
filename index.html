@@ -79,9 +79,21 @@ button{font:inherit;cursor:pointer}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
 .panel{display:flex;flex-direction:column;gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
-ul.clean{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.clean{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
 .call{border-left:5px solid var(--tip-line);background:var(--tip);border-radius:6px;padding:12px 14px}
 .call.key{border-left-color:var(--key-line);background:var(--key)}
+.call.warn{border-left-color:var(--bad);background:var(--bad-soft)}
+.bank{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.bk{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.bk h3{font-size:1.02rem}
+.bk .use{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.ex-list{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.ex-list li{display:flex;flex-direction:column;border-top:1px dashed var(--line);padding-top:5px}
+.ex-list .en{font-weight:600;line-height:1.4}
+.ex-list .th{font-size:.9rem;color:var(--muted);line-height:1.4}
+.lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.chip{font-family:var(--mono);font-size:.75rem;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 12px;background:var(--surface)}
+.listen{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .tbl{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:.95rem}
 th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
@@ -156,11 +168,11 @@ const DAYS = [
 const CONTENT = {
 1: {
   goals:['ทบทวนโครงสร้างข้อสอบ น้ำหนักคะแนน และแผนเวลา 90 นาที','ฝึกโจทย์ผสมทุกส่วนเพื่อดูว่าตัวเองพลาดตรงไหน','เริ่มจำคำศัพท์ชุดที่ 1 ด้วยการทดสอบตัวเอง'],
-  technique:{
-    table:[['Listening & Speaking','1–20','25','15 นาที'],['Reading','21–60','50','55 นาที'],['Writing','61–80','25','15 นาที'],['ทวนข้อที่ทำเครื่องหมาย','','','5 นาที']],
-    key:['ส่วน Listening & Speaking ไม่มีเสียง เป็นการอ่านบทสนทนาแล้วเลือกประโยคเติม','ทุกข้อได้ 1.25 คะแนนเท่ากัน ติดข้อไหนเกิน 1 นาที ให้เลือกคำตอบที่ดีที่สุดไว้ ทำเครื่องหมาย แล้วไปต่อ'],
-    tip:'จดเวลาที่ต้องทำแต่ละส่วนให้เสร็จไว้มุมกระดาษ เช่น เริ่ม 9.00 → L&S เสร็จ 9.15 → Reading เสร็จ 10.10 → Writing เสร็จ 10.25'
-  },
+  technique:[
+    {table:{head:['ส่วน','ข้อ','คะแนน','เวลาแนะนำ'],num:true,rows:[['Listening & Speaking','1–20','25','15 นาที'],['Reading','21–60','50','55 นาที'],['Writing','61–80','25','15 นาที'],['ทวนข้อที่ทำเครื่องหมาย','','','5 นาที']]}},
+    {call:'key',title:'📌 จำไว้',list:['ส่วน Listening & Speaking ไม่มีเสียง เป็นการอ่านบทสนทนาแล้วเลือกประโยคเติม','ทุกข้อได้ 1.25 คะแนนเท่ากัน ติดข้อไหนเกิน 1 นาที ให้เลือกคำตอบที่ดีที่สุดไว้ ทำเครื่องหมาย แล้วไปต่อ']},
+    {call:'tip',title:'💡 เคล็ดลับ',text:'จดเวลาที่ต้องทำแต่ละส่วนให้เสร็จไว้มุมกระดาษ เช่น เริ่ม 9.00 → L&S เสร็จ 9.15 → Reading เสร็จ 10.10 → Writing เสร็จ 10.25'}
+  ],
   vocab:[
     ['deadline','n.','กำหนดส่ง','Nipa worked all night to meet the deadline.'],
     ['assignment','n.','งานที่ได้รับมอบหมาย','The assignment is due on Friday.'],
@@ -231,6 +243,104 @@ const CONTENT = {
     ]
   },
   homework:['Vocabulary Set 1: ทำบัตรคำ 15 คำ และทดสอบตัวเองในแท็บคำศัพท์','ทำ Warm-up Set ในโหมดฝึกให้ได้ 10/12 ขึ้นไป','บันทึกข้อที่ผิดลง Error Log ในเอกสาร']
+},
+2: {
+  goals:['เลือกประโยคเติมบทสนทนาโดยอ่านประโยคหลังช่องว่างก่อน','ใช้สำนวนสื่อสาร 6 กลุ่มที่ออกบ่อยให้ถูกสถานการณ์','ตัดตัวลวงที่ถูกไวยากรณ์แต่ไม่รับกับบทสนทนา'],
+  technique:[
+    {h:'วิธีทำ Short Conversation 4 ขั้น'},
+    {ol:['อ่าน <b>Situation</b> แล้วดูว่าใครคุยกับใคร (เพื่อน / ลูกค้ากับพนักงาน / นักเรียนกับครู) เพื่อรู้ระดับภาษา','อ่านประโยค <b>หลัง</b> ช่องว่างก่อน แล้วถามตัวเองว่า "ประโยคนี้ตอบอะไร"','อ่านประโยค <b>ก่อน</b> ช่องว่าง เพื่อดูว่ากำลังคุยเรื่องอะไร','เลือกตัวเลือกที่เข้ากับ <b>ทั้งก่อนและหลัง</b> แล้วตัดตัวลวงทีละตัว']},
+    {h:'ประโยคหลังช่องว่างบอกอะไร'},
+    {table:{head:['ถ้าประโยคหลังช่องว่างคือ','ช่องว่างน่าจะเป็น'],rows:[
+      ['<i>Sure. / Of course. / No problem.</i>','คำขอร้อง เช่น <i>Could you…?</i>'],
+      ['<i>Not at all.</i>','<i>Would you mind + V-ing?</i>'],
+      ['<i>That would be great.</i>','ข้อเสนอ เช่น <i>Do you want me to…? / Shall I…?</i>'],
+      ['<i>Not yet.</i>','คำถาม present perfect ที่มี <i>yet</i>'],
+      ['<i>Thanks. / Thank you.</i>','คำชม คำอวยพร หรือความช่วยเหลือ'],
+      ['<i>You’re right. / That’s a great idea.</i>','คำแนะนำหรือความเห็น'],
+      ['คำพูดซ้ำแบบสงสัย เช่น <i>Two days?</i>','ประโยคที่บอกข้อมูลนั้น (เช่น ใช้เวลา 2 วัน)']]}},
+    {h:'Functional Language Bank'},
+    {p:'ข้อสอบวัดว่าใช้สำนวน "เมื่อไร" ไม่ใช่แค่แปลได้ จำเป็นคู่ ประโยคพูด → คำตอบ'},
+    {bank:[
+      {name:'ขอร้อง และเสนอความช่วยเหลือ',use:'Requests & offers',say:[['Could you…, please?','ช่วย…ได้ไหม'],['Would you mind + V-ing?','จะรังเกียจไหมถ้า…'],['Do you want me to…? / Shall I…?','ให้ฉัน…ไหม']],reply:[['Sure. / No problem.','ได้เลย'],['Not at all.','ไม่รังเกียจเลย (ยินดีทำ)'],['That would be great. / Thanks, but I can manage.','ดีเลย / ขอบคุณ แต่ทำเองได้']]},
+      {name:'ชวน และเสนอแนะ',use:'Invitations & suggestions',say:[['How about + V-ing?','…ดีไหม'],['Why don’t we…?','ทำไมเราไม่…ล่ะ'],['Do you want to…? / Would you like to…?','อยาก…ไหม']],reply:[['Sounds good! / Count me in.','ดีเลย / นับฉันด้วย'],['I’d love to, but…','อยากไปนะ แต่…'],['Maybe some other time.','ไว้โอกาสหน้า']]},
+      {name:'แสดงความเห็น เห็นด้วย ไม่เห็นด้วย',use:'Opinions',say:[['In my opinion, … / I think…','ฉันคิดว่า…'],['What do you think about…?','คิดอย่างไรกับ…']],reply:[['I couldn’t agree more. / You can say that again.','เห็นด้วยที่สุด'],['That’s a good point.','เป็นประเด็นที่ดี'],['I see your point, but… / I’m not so sure about that.','เข้าใจนะ แต่… / ไม่แน่ใจนะ']]},
+      {name:'ตอบรับข่าว',use:'Reacting to news',say:[['Guess what? / You’ll never believe this.','รู้อะไรไหม / ไม่น่าเชื่อเลย']],reply:[['That’s great news! / Congratulations! / Lucky you!','ข่าวดี / ยินดีด้วย / โชคดีจัง'],['I’m sorry to hear that. / What a pity!','เสียใจด้วย / น่าเสียดาย'],['You’re kidding! / No way!','ล้อเล่นน่า / ไม่จริงน่า']]},
+      {name:'ขอโทษ และร้องเรียน',use:'Apologies & complaints',say:[['I’m terribly sorry. It won’t happen again.','ขอโทษจริง ๆ จะไม่เกิดขึ้นอีก'],['I’m afraid there’s a problem with…','เกรงว่า…มีปัญหา']],reply:[['That’s all right. / Don’t worry about it.','ไม่เป็นไร'],['Let me check that for you.','ขอตรวจสอบให้นะ']]},
+      {name:'ขอและให้คำแนะนำ',use:'Advice',say:[['What should I do?','ฉันควรทำอย่างไรดี'],['Do you have any advice on…?','มีคำแนะนำเรื่อง…ไหม']],reply:[['You should… / You’d better…','ควร… / ควรจะ… (ไม่อย่างนั้นจะมีปัญหา)'],['If I were you, I’d…','ถ้าฉันเป็นคุณ ฉันจะ…'],['Have you thought about + V-ing?','ลอง…ดูหรือยัง']]}
+    ]},
+    {call:'warn',title:'⚠️ กับดัก Would you mind…?',text:'<i>Would you mind opening the window?</i> แปลว่า "คุณจะรังเกียจไหมถ้า…" ถ้ายินดีทำให้ตอบ <b>Not at all.</b> หรือ <b>Of course not.</b> ถ้าตอบ <i>Yes, I do.</i> แปลว่า "รังเกียจ" คือปฏิเสธ'},
+    {call:'warn',title:'⚠️ ตัวลวงที่พบบ่อย',list:['ถูกไวยากรณ์และฟังเป็นธรรมชาติ แต่ไม่รับกับประโยคถัดไป','มีคำซ้ำกับบทสนทนา แต่ความหมายไม่ตรง','ระดับภาษาไม่เหมาะ เช่น พูดกับครูแบบไม่สุภาพ','ใช้สำนวนผิดสถานการณ์ เช่น <i>Lucky you!</i> กับข่าวร้าย']},
+    {call:'tip',title:'💡 เคล็ดลับ',text:'ส่วนนี้มีเวลาเฉลี่ยข้อละ 45 วินาที ถ้าประโยคหลังช่องว่างชัดเจน มักตัดตัวเลือกได้ทันทีโดยไม่ต้องอ่านทุกตัวละเอียด'}
+  ],
+  vocab:[
+    ['Would you mind + V-ing?','ขอร้อง','คุณจะรังเกียจไหมถ้า…','Would you mind turning down the music?'],
+    ['Not at all.','ตอบคำขอร้อง','ไม่รังเกียจเลย (ยินดีทำ)','“Would you mind waiting?” “Not at all.”'],
+    ['That would be great.','ตอบรับข้อเสนอ','ดีเลย (ยินดีรับ)','“Shall I print it for you?” “That would be great.”'],
+    ['Thanks, but I can manage.','ปฏิเสธข้อเสนอ','ขอบคุณ แต่ทำเองได้','“Need some help?” “Thanks, but I can manage.”'],
+    ['Why don’t we…?','ชวน / เสนอแนะ','ทำไมเราไม่…ล่ะ','Why don’t we study at the library today?'],
+    ['Count me in.','ตอบรับคำชวน','นับฉันด้วย','“We’re playing football later.” “Count me in!”'],
+    ['I’d love to, but…','ปฏิเสธคำชวน','อยากไปนะ แต่…','I’d love to, but I have a piano lesson.'],
+    ['Maybe some other time.','ปฏิเสธคำชวน','ไว้โอกาสหน้า','I can’t come tonight. Maybe some other time.'],
+    ['I couldn’t agree more.','เห็นด้วย','เห็นด้วยที่สุด','“Exams are stressful.” “I couldn’t agree more.”'],
+    ['I see your point, but…','ไม่เห็นด้วยอย่างสุภาพ','เข้าใจนะ แต่…','I see your point, but the bus is cheaper.'],
+    ['I’m sorry to hear that.','ตอบข่าวร้าย','เสียใจด้วย','“I failed my driving test.” “I’m sorry to hear that.”'],
+    ['You’re kidding!','ประหลาดใจ','ล้อเล่นน่า!','“I met a famous singer today.” “You’re kidding!”'],
+    ['Lucky you!','ตอบข่าวดี','โชคดีจัง','“I’m going to Japan next month.” “Lucky you!”'],
+    ['If I were you, I’d…','ให้คำแนะนำ','ถ้าฉันเป็นคุณ ฉันจะ…','If I were you, I’d ask the teacher for help.'],
+    ['You’d better…','ให้คำแนะนำ (เตือน)','ควรจะ… (ไม่อย่างนั้นจะมีปัญหา)','You’d better hurry, or you’ll miss the bus.']
+  ],
+  vocabQuiz:[
+    {s:'A: I think we should start the project early. B: ______ Last time we finished at 3 a.m.!',o:['I couldn’t agree more.','I see your point, but no.','Maybe some other time.','You’re welcome.'],a:0,e:'B เห็นด้วยแล้วให้เหตุผลสนับสนุน (ครั้งก่อนเสร็จตีสาม)'},
+    {s:'A: I’ve just won two concert tickets! B: ______ Who are you going to take?',o:['What a pity!','I couldn’t agree more.','Lucky you!','Not at all.'],a:2,e:'Lucky you! ใช้ตอบข่าวดีหรือเรื่องโชคดี'},
+    {s:'A: Do you want me to carry that box for you? B: ______ It’s not very heavy.',o:['That would be great.','Thanks, but I can manage.','Yes, I do mind.','Count me in.'],a:1,e:'ปฏิเสธข้อเสนออย่างสุภาพ เพราะกล่องไม่หนัก'},
+    {s:'A: Let’s go to the new café after class. B: I’d love to, but I have to help at my aunt’s shop. ______',o:['Count me in.','Lucky you!','Not at all.','Maybe some other time.'],a:3,e:'ปฏิเสธคำชวน แล้วชวนไว้โอกาสหน้า'},
+    {s:'A: Would you mind closing the door? B: ______ It’s a bit cold in here.',o:['Not at all.','Yes, I would.','Never mind.','Same to you.'],a:0,e:'Not at all = ไม่รังเกียจ ยินดีทำ ส่วน Yes, I would = รังเกียจ (ปฏิเสธ)'},
+    {s:'A: My laptop broke the night before my presentation. B: ______ Did you lose all your slides?',o:['Congratulations!','Lucky you!','Count me in.','I’m sorry to hear that.'],a:3,e:'ตอบข่าวร้ายด้วยความเห็นใจ'},
+    {s:'A: I have a terrible toothache. B: ______ see a dentist today.',o:['Why don’t we','I’d love to','You’d better','Count me in,'],a:2,e:'You’d better + V1 = ควรจะ… ใช้ให้คำแนะนำแบบเตือน'},
+    {s:'A: We’re going to the beach on Sunday. Do you want to come? B: ______ I haven’t been to the sea for ages!',o:['I’m sorry to hear that.','Count me in!','Thanks, but I can manage.','You’d better.'],a:1,e:'Count me in = นับฉันด้วย ตอบรับคำชวนอย่างกระตือรือร้น'}
+  ],
+  practice:{
+    title:'Short Conversations Set (12 ข้อ)', minutes:9,
+    groups:[
+      {label:'Short Conversation 1', type:'dialogue', situation:'At a bubble tea shop',
+       lines:[['Staff','Hi! What can I get for you today?'],['Nipa','____(1)____'],['Staff','Sure. How sweet would you like it? We have 0, 50, and 100 percent.'],['Nipa','50 percent, please. Oh, and ____(2)____'],['Staff','____(3)____'],['Nipa','Thanks. How much is it?'],['Staff','65 baht. ____(4)____'],['Nipa','QR code, please. Here you go.']],
+       items:[
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['I’d like to complain about my drink.','Could I have a large brown sugar milk tea, please?','Do you want me to make it for you?','How long have you worked here?'],a:1,
+         e:'พนักงานตอบ "Sure. How sweet would you like it?" แปลว่าลูกค้าเพิ่งสั่งเครื่องดื่ม',x:['ยังไม่ได้สั่ง จึงร้องเรียนเรื่องเครื่องดื่มไม่ได้','เป็นการเสนอช่วย ใช้สลับบทบาทลูกค้ากับพนักงาน','ถามเรื่องส่วนตัว พนักงานจะไม่ตอบด้วยการถามระดับความหวาน']},
+        {sec:'L&S',tag:'คำขอร้อง',d:'ปานกลาง',o:['could you make it extra sweet?','can I have it for free?','I’m sorry to hear that.','would you mind not putting a straw in it? I brought my own.'],a:3,
+         e:'"Oh, and..." ใช้เพิ่มคำขอ และนิภาขอบคุณหลังพนักงานตอบ D เป็นคำขอที่สุภาพและสมเหตุสมผล',x:['ขัดกับที่เพิ่งบอกว่าหวาน 50%','ขอของฟรีโดยไม่มีเหตุผล ไม่สุภาพ','ใช้ตอบข่าวร้าย แต่ไม่มีข่าวร้าย']},
+        {sec:'L&S',tag:'Would you mind',d:'ยาก',o:['Not at all. I’ll leave it out.','Yes, I do mind. Here’s your straw.','Never mind.','Same to you.'],a:0,
+         e:'ตอบ Would you mind…? ด้วย "Not at all." แปลว่ายินดีทำตาม นิภาจึงขอบคุณ',x:['⚠️ Yes, I do mind = รังเกียจ คือปฏิเสธ และขัดกับคำขอบคุณ','= ช่างมันเถอะ ใช้ปัดเรื่องทิ้ง ไม่ได้ตอบคำขอ','ใช้ตอบคำอวยพร เช่น Have a nice day!']},
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['Would you like a bag for that?','Here’s your change.','Would you like to pay by cash or QR code?','Your drink is ready.'],a:2,
+         e:'นิภาตอบ "QR code, please." จึงต้องเป็นคำถามเรื่องวิธีจ่ายเงิน',x:['ถามเรื่องถุง ต้องตอบ Yes/No','ยังไม่ได้จ่ายเงิน จึงยังไม่มีเงินทอน','ไม่ใช่คำถาม ตอบด้วย QR code ไม่ได้']}
+       ]},
+      {label:'Short Conversation 2', type:'dialogue', situation:'Two friends checking their speaking test results',
+       lines:[['Wichai','Hana! The results of the speaking test are online now. ____(5)____'],['Hana','Not yet. I’m too nervous to look. What about you?'],['Wichai','I got 18 out of 20!'],['Hana','____(6)____'],['Wichai','Thanks. I practiced with my cousin every evening. Okay, let’s check yours together.'],['Hana','Oh no... I only got 11. ____(7)____'],['Wichai','____(8)____'],['Hana','You’re right. Maybe I should practice with your cousin, too!']],
+       items:[
+        {sec:'L&S',tag:'Present perfect + yet',d:'ยาก',o:['Did you take the test last week?','Where can I find them?','Have you checked yours yet?','Why don’t we check them next week?'],a:2,
+         e:'ฮานะตอบ "Not yet." ซึ่งใช้ตอบคำถาม present perfect ที่มี yet',x:['⚠️ ทั้งคู่สอบแล้ว และคำถาม past simple ไม่ตอบด้วย Not yet','วิชัยเพิ่งบอกว่าผลอยู่ออนไลน์ และฮานะไม่ได้บอกที่อยู่','ฮานะตอบ Not yet แล้วถามกลับ ไม่ได้ตอบคำชวน']},
+        {sec:'L&S',tag:'ตอบรับข่าวดี',d:'ง่าย',o:['That’s fantastic! You must be really proud.','What a pity!','Never mind. You’ll do better next time.','I couldn’t agree more.'],a:0,
+         e:'18/20 เป็นข่าวดี และวิชัยตอบ "Thanks."',x:['ใช้กับข่าวร้าย','ใช้ปลอบเมื่อผลไม่ดี','ใช้แสดงความเห็นด้วย แต่วิชัยไม่ได้แสดงความเห็น']},
+        {sec:'L&S',tag:'บริบท',d:'ง่าย',o:['I couldn’t be happier!','That’s the highest score in the class.','Congratulations on your result!','I was hoping for at least 15.'],a:3,
+         e:'"Oh no... I only got 11." แสดงว่าผิดหวัง ประโยคต่อไปจึงบอกคะแนนที่หวังไว้',x:['ขัดกับ "Oh no"','11 น้อยกว่า 18 ของวิชัย จึงไม่ใช่คะแนนสูงสุด','ฮานะพูดถึงคะแนนตัวเอง จะแสดงความยินดีกับตัวเองไม่ได้']},
+        {sec:'L&S',tag:'ตอบรับข่าวร้าย',d:'ปานกลาง',o:['Lucky you!','I’m sorry to hear that. But it’s only the first test.','You’re kidding! That’s amazing!','Good for you. You deserve it.'],a:1,
+         e:'ปลอบเมื่อได้ข่าวไม่ดี และฮานะตอบ "You’re right." ซึ่งเห็นด้วยกับ "it’s only the first test"',x:['ใช้กับข่าวดี','แสดงความตื่นเต้นกับข่าวดี','แสดงความยินดี ไม่เหมาะกับข่าวที่ผิดหวัง']}
+       ]},
+      {label:'Short Conversation 3', type:'dialogue', situation:'A student talking to his teacher after class',
+       lines:[['Thana','Excuse me, Ms. Carmen. Do you have a minute?'],['Ms. Carmen','Of course, Thana. ____(9)____'],['Thana','It’s about my essay. I’m afraid I can’t finish it by Friday. My grandmother is in the hospital, and I’ve been helping my family.'],['Ms. Carmen','____(10)____'],['Thana','Thank you. She’s getting better now. ____(11)____'],['Ms. Carmen','Monday is fine. ____(12)____'],['Thana','That’s a great idea. I’ll do that. Thank you so much.']],
+       items:[
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['Never mind.','Thank you for coming.','I’m afraid I’m busy all day.','What can I do for you?'],a:3,
+         e:'ธนาตอบ "It’s about my essay." ซึ่งบอกว่ามาเรื่องอะไร จึงต้องเป็นคำถามว่าให้ช่วยอะไร',x:['= ช่างมันเถอะ ขัดกับ "Of course"','ไม่ใช่คำถาม ธนาไม่จำเป็นต้องบอกว่ามาเรื่องอะไร','ขัดกับ "Of course" ที่เพิ่งตอบรับ']},
+        {sec:'L&S',tag:'ตอบรับข่าวร้าย',d:'ปานกลาง',o:['That’s no excuse. You should have started earlier.','Congratulations!','Oh, I’m sorry to hear that. I hope she gets better soon.','Lucky you!'],a:2,
+         e:'ยายของธนาอยู่โรงพยาบาลเป็นข่าวร้าย ธนาตอบ "Thank you. She’s getting better now." ซึ่งรับกับคำอวยพรให้หายเร็ว',x:['ธนาจะไม่ขอบคุณคำตำหนิ และไม่ต่อด้วยอาการของยาย','ใช้กับข่าวดี','ใช้กับข่าวดี']},
+        {sec:'L&S',tag:'คำขออย่างสุภาพ',d:'ปานกลาง',o:['Could you give me a higher score?','Would it be possible to hand it in next Monday instead?','Do you want me to help you mark the essays?','Shall we cancel the essay?'],a:1,
+         e:'ครูตอบ "Monday is fine." จึงต้องเป็นการขอเลื่อนส่งเป็นวันจันทร์',x:['ไม่เกี่ยวกับวันส่ง','เป็นการเสนอช่วยครู ไม่มีเรื่องวันจันทร์','นักเรียนยกเลิกงานเองไม่ได้ และไม่เกี่ยวกับวันจันทร์']},
+        {sec:'L&S',tag:'คำแนะนำ',d:'ปานกลาง',o:['Why don’t you send me your outline by Friday? Then I can give you some feedback.','That’s out of the question.','You’re welcome.','Same to you.'],a:0,
+         e:'ธนาตอบ "That’s a great idea. I’ll do that." ซึ่งใช้ตอบคำแนะนำ',x:['= เป็นไปไม่ได้ ขัดกับ "Monday is fine."','ใช้ตอบคำขอบคุณ แต่ธนายังไม่ได้ขอบคุณ','ใช้ตอบคำอวยพร']}
+       ]}
+    ]
+  },
+  homework:['Vocabulary Set 2: ทดสอบตัวเองด้วยบัตรคำจนจำได้ทั้ง 15 สำนวน','ทำ Short Conversations Set ในโหมดจับเวลา 9 นาที ให้ได้ 10/12 ขึ้นไป','หลังส่งคำตอบ กด "ฟังบทสนทนา" แล้วพูดตามทีละประโยค (shadowing) อย่างน้อย 1 บท','บันทึกข้อที่ผิดลง Error Log']
 }
 };
 
@@ -246,7 +356,7 @@ function unlockDate(n){
   if (s) return new Date(s+'T00:00:00');
   const d = new Date(COURSE.start+'T00:00:00'); d.setDate(d.getDate()+n-1); return d;
 }
-function isOpen(n){ return COURSE.openAll || new Date() >= unlockDate(n); }
+function isOpen(n){ return COURSE.openAll || store.get('preview',false) || new Date() >= unlockDate(n); }
 const thDate = d => d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
 
 /* ================= HELPERS ================= */
@@ -260,7 +370,9 @@ const footer = '<footer>ออกแบบโดย Suparat Walakanon · The Int
 function renderHome(){
   const done = store.get('done',{});
   app.innerHTML = `
-  <div class="topbar"><span class="brand"><span class="dot"></span>A-Level English 82</span><span class="eyebrow">เตรียมสอบ 10 วัน</span></div>
+  <div class="topbar"><span class="brand"><span class="dot"></span>A-Level English 82</span>${store.get('preview',false)
+    ? '<button class="chip" id="exitPrev">โหมดผู้สอน: เปิดทุกวัน · ออก</button>'
+    : '<span class="eyebrow">เตรียมสอบ 10 วัน</span>'}</div>
   <section class="sheet">
     <div><p class="eyebrow">ข้อสอบ A-Level 82 Eng</p><h1>เตรียมสอบภาษาอังกฤษ A-Level ทีละวัน</h1></div>
     <div class="strip" role="img" aria-label="สัดส่วนข้อสอบ 3 ส่วน">
@@ -282,6 +394,7 @@ function renderHome(){
         <span><span class="s">${esc(d.part)}</span><br><span class="t">${esc(d.title)}</span>
         <span class="state ${fin?'done':open&&ready?'open':''}" style="display:block">${st}</span></span></button>`;}).join('')}</div>
   </section>${footer}`;
+  const ex=$('#exitPrev'); if(ex) ex.onclick=()=>{store.set('preview',false);renderHome();};
   app.querySelectorAll('.day').forEach(b=>b.addEventListener('click',()=>{
     const n=+b.dataset.day; if(isOpen(n)&&CONTENT[n]) location.hash='day'+n; }));
 }
@@ -309,15 +422,46 @@ function renderDay(n){
 function drawPanel(){
   const C = CONTENT[dayState.n], P = $('#panel');
   if(dayState.tab==='tech'){
-    const T=C.technique;
-    P.innerHTML = `<div class="card"><h3>เป้าหมายวันนี้</h3><ul class="clean" style="margin-top:8px">${C.goals.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></div>
-     <div class="tbl"><table><thead><tr><th>ส่วน</th><th>ข้อ</th><th>คะแนน</th><th>เวลาแนะนำ</th></tr></thead><tbody>
-     ${T.table.map(r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num">${r[3]}</td></tr>`).join('')}</tbody></table></div>
-     <div class="call key"><b>📌 จำไว้</b><ul class="clean" style="margin-top:4px">${T.key.map(k=>`<li>${esc(k)}</li>`).join('')}</ul></div>
-     <div class="call"><b>💡 เคล็ดลับ</b> ${esc(T.tip)}</div>`;
+    P.innerHTML = `<div class="card"><h3>เป้าหมายวันนี้</h3><ul class="clean" style="margin-top:8px">${C.goals.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></div>`
+      + C.technique.map(renderBlock).join('');
   } else if(dayState.tab==='vocab') drawVocab(P,C);
   else if(dayState.tab==='practice') drawPractice(P,C);
   else P.innerHTML = `<div class="card"><h3>การบ้านวันที่ ${dayState.n}</h3><ul class="clean" style="margin-top:8px">${C.homework.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div>`;
+}
+
+/* technique blocks (content is authored HTML) */
+function renderBlock(b){
+  if(b.h) return `<h2>${b.h}</h2>`;
+  if(b.p) return `<p>${b.p}</p>`;
+  if(b.ol) return `<ol class="clean">${b.ol.map(x=>`<li>${x}</li>`).join('')}</ol>`;
+  if(b.table) return `<div class="tbl"><table><thead><tr>${b.table.head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${
+    b.table.rows.map(r=>`<tr>${r.map((c,i)=>`<td${b.table.num&&i>0?' class="num"':''}>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if(b.call) return `<div class="call ${b.call==='tip'?'':b.call}"><b>${b.title}</b>${
+    b.list?`<ul class="clean" style="margin-top:4px">${b.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:' '+b.text}</div>`;
+  if(b.bank) return `<div class="bank">${b.bank.map(g=>`<div class="bk"><div><h3>${g.name}</h3><span class="use">${g.use}</span></div>
+    <span class="lbl">พูด</span><ul class="ex-list">${g.say.map(e=>`<li><span class="en">${e[0]}</span><span class="th">${e[1]}</span></li>`).join('')}</ul>
+    <span class="lbl">ตอบ</span><ul class="ex-list">${g.reply.map(e=>`<li><span class="en">${e[0]}</span><span class="th">${e[1]}</span></li>`).join('')}</ul></div>`).join('')}</div>`;
+  return '';
+}
+
+/* listen to a finished dialogue with the browser's English voices */
+const canSpeak = typeof window!=='undefined' && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance!=='undefined';
+function stopSpeech(){ try{ if(canSpeak) speechSynthesis.cancel(); }catch(e){} }
+function speakDialogue(g,btn){
+  const ss=window.speechSynthesis;
+  if(ss.speaking){ ss.cancel(); btn.textContent='▶ ฟังบทสนทนา'; return; }
+  const voices=ss.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
+  const pref=['en-US','en-GB','en-AU','en-CA'];
+  const speakers=[...new Set(g.lines.map(l=>l[0]))], vmap={};
+  speakers.forEach((s,i)=>{ vmap[s]={v:voices.find(v=>v.lang.replace('_','-')===pref[i%4])||voices[i%Math.max(voices.length,1)]||null, pitch:i%2?1.15:0.9}; });
+  const fill=t=>t.replace(/_{2,}\((\d+)\)_{2,}/g,(m,k)=>{const it=g.items.find(x=>x._n===+k);return it?it.o[it.a]:'';});
+  btn.textContent='■ หยุด';
+  g.lines.forEach(([who,t],k)=>{
+    const u=new SpeechSynthesisUtterance(fill(t)); const m=vmap[who];
+    u.lang='en-US'; if(m.v){u.voice=m.v;u.lang=m.v.lang;} u.pitch=m.pitch; u.rate=0.95;
+    if(k===g.lines.length-1) u.onend=()=>{btn.textContent='▶ ฟังบทสนทนา';};
+    ss.speak(u);
+  });
 }
 
 /* ---------- vocab: flashcards + quiz ---------- */
@@ -337,7 +481,7 @@ function drawVocab(P,C){
   const vq=$('#vq');
   C.vocabQuiz.forEach((q,k)=>{
     const d=document.createElement('div'); d.className='q';
-    d.innerHTML=`<p class="stem"><span class="n">${k+1}.</span>${esc(q.s)}</p><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}"><span class="b">${L[j]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="exp" hidden></div>`;
+    d.innerHTML=`<p class="stem"><span class="n">${k+1}.</span>${esc(q.s).replace(/ (B:)/,'<br>$1')}</p><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}"><span class="b">${L[j]}</span><span>${esc(o)}</span></button>`).join('')}</div><div class="exp" hidden></div>`;
     d.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
       const j=+b.dataset.j;
       d.querySelectorAll('.opt').forEach((x,xi)=>{x.disabled=true; if(xi===q.a)x.classList.add('right'); if(xi===j&&j!==q.a)x.classList.add('wrong'); if(xi===j)x.classList.add('sel');});
@@ -363,9 +507,9 @@ const countItems = pr => pr.groups.reduce((a,g)=>a+g.items.length,0);
 function startSet(P,C,mode){
   const pr=C.practice; P_state={mode,ans:{},done:false,left:pr.minutes*60};
   let n=0;
-  const html=pr.groups.map(g=>{
+  const html=pr.groups.map((g,gi)=>{
     const pass = g.type==='dialogue'
-      ? `<div class="passage"><span class="sit">Situation: ${esc(g.situation)}</span><div class="dl">${g.lines.map(l=>`<b>${esc(l[0])}:</b><span>${esc(l[1])}</span>`).join('')}</div></div>`
+      ? `<div class="passage"><span class="sit">Situation: ${esc(g.situation)}</span><div class="dl">${g.lines.map(l=>`<b>${esc(l[0])}:</b><span>${esc(l[1])}</span>`).join('')}</div></div>${canSpeak?`<div class="listen" data-g="${gi}" hidden></div>`:''}`
       : `<div class="passage">${g.html}</div>`;
     const qs=g.items.map(it=>{n++; it._n=n;
       return `<div class="q" data-n="${n}"><p class="stem"><span class="n">${n}.</span>${it.stem?esc(it.stem):''}</p>
@@ -404,6 +548,11 @@ function finish(P,C,items){
   let score=0; const bySec={};
   items.forEach(it=>{const ok=P_state.ans[it._n]===it.a; if(ok)score++; bySec[it.sec]=bySec[it.sec]||[0,0]; bySec[it.sec][1]++; if(ok)bySec[it.sec][0]++;});
   P.querySelectorAll('.q').forEach(qd=>{const it=items[+qd.dataset.n-1]; reveal(qd,it,P_state.ans[it._n]);});
+  P.querySelectorAll('.listen').forEach(el=>{
+    const g=C.practice.groups[+el.dataset.g]; el.hidden=false;
+    el.innerHTML='<button class="btn primary">▶ ฟังบทสนทนา</button><span class="muted" style="font-size:.88rem">ฟังฉบับเติมคำตอบแล้ว และพูดตามทีละประโยค</span>';
+    const b=el.querySelector('button'); b.onclick=()=>speakDialogue(g,b);
+  });
   const best=store.get('best'+dayState.n,0); if(score>best) store.set('best'+dayState.n,score);
   const done=store.get('done',{}); done[dayState.n]=true; store.set('done',done);
   const used = P_state.mode==='timed' ? ` · ใช้เวลา ${Math.round((C.practice.minutes*60-Math.max(P_state.left,0))/60)} นาที` : '';
@@ -419,7 +568,8 @@ function finish(P,C,items){
 
 /* ================= ROUTER ================= */
 function route(){
-  clearInterval(timerId);
+  clearInterval(timerId); stopSpeech();
+  if(location.hash==='#teacher-preview'){ store.set('preview',true); location.hash='home'; return; }
   const m=(location.hash||'').match(/^#day(\d+)$/);
   if(m && +m[1]>=1 && +m[1]<=10) renderDay(+m[1]); else renderHome();
   window.scrollTo(0,0);

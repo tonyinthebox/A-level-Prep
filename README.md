@@ -14,3 +14,7 @@
 
 ---
 Designed by Suparat Walakanon, The International Studies Center, RMUTI, Surin Campus
+
+## โหมดผู้สอน
+
+เปิดลิงก์เว็บแล้วต่อท้ายด้วย `#teacher-preview` เพื่อดูทุกวันก่อนกำหนด (เฉพาะเบราว์เซอร์นั้น) กด "ออก" ที่มุมขวาบนเพื่อกลับเป็นมุมมองผู้เรียน
