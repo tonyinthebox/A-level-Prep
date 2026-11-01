@@ -503,6 +503,125 @@ const CONTENT = {
     ]
   },
   homework:['Vocabulary Set 3: ทดสอบตัวเองด้วยบัตรคำจนจำได้ทั้ง 15 สำนวน','ทำ Idioms & Long Conversation Set ในโหมดจับเวลา 11 นาที ให้ได้ 12/15 ขึ้นไป','กด "ฟังบทสนทนา" ของบทยาว แล้วพูดตามทั้งบท (shadowing)','แต่งบทสนทนาสั้น 4 บรรทัด ที่ใช้สำนวนจากวันนี้อย่างน้อย 2 สำนวน','บันทึกข้อที่ผิดลง Error Log']
+},
+4: {
+  goals:['วางแผนเวลา Reading 55 นาทีตามประเภทบทอ่าน','อ่านโฆษณาเพื่อหาจุดประสงค์ กลุ่มเป้าหมาย และเงื่อนไข แล้วคำนวณราคาได้ถูกต้อง','ใช้เทคนิคตรวจตัวเลือกกับคำถาม NOT / EXCEPT','แยกข้อดี ข้อเสีย และทัศนคติของผู้เขียนรีวิว'],
+  technique:[
+    {h:'แผนเวลา Reading 55 นาที'},
+    {table:{head:['บทอ่าน','ข้อ','เวลา'],num:true,rows:[
+      ['Advertisements (2 ชิ้น)','6','6 นาที'],
+      ['Product / Service Review','6','7 นาที'],
+      ['News Report','6','7 นาที'],
+      ['Visuals (2 ชิ้น)','6','8 นาที'],
+      ['General Articles (2 บท)','16','24 นาที'],
+      ['สำรอง','','3 นาที']]}},
+    {h:'อ่านโฆษณาให้เร็ว: หา 5 อย่าง'},
+    {table:{head:['สิ่งที่หา','คำถามที่มักออก'],rows:[
+      ['<b>Product / Service</b> ขายอะไร','<i>What is the main purpose…? / What is being advertised?</i>'],
+      ['<b>Target</b> ใครคือกลุ่มเป้าหมาย','<i>Who would be most interested…?</i>'],
+      ['<b>Selling points</b> จุดขาย','<i>Which of the following is offered…?</i>'],
+      ['<b>Conditions</b> ราคา วันเวลา ส่วนลด คุณสมบัติ','คำถาม detail, NOT และโจทย์คำนวณ'],
+      ['<b>Call to action</b> ให้ผู้อ่านทำอะไร','<i>What should interested people do?</i>']]}},
+    {h:'เทคนิค NOT / EXCEPT / FALSE'},
+    {ol:['วงคำ <b>NOT / EXCEPT / FALSE</b> ในโจทย์ให้ชัด กันลืมกลางทาง','ตรวจทีละตัวเลือก ถ้าเจอหลักฐานในบท ให้ใส่ ✓','ตัวเลือกที่หาหลักฐานไม่เจอ หรือขัดกับบท คือคำตอบ','หาหลักฐานของอีก 3 ตัวเลือก ไม่ต้องหาหลักฐานของคำตอบ']},
+    {h:'อ่านรีวิว: แยกข้อดีและข้อเสีย'},
+    {table:{head:['สัญญาณ','ตัวอย่างคำ'],rows:[
+      ['ข้อดี (+)','<i>impressive, better than I expected, excellent, worth every baht</i>'],
+      ['ข้อเสีย (−)','<i>Unfortunately, a letdown, disappointing, feels cheap</i>'],
+      ['เปลี่ยนทิศ (↔)','<i>However, On the other hand, That said</i>'],
+      ['สรุป','<i>Overall, All in all, In short</i>']]}},
+    {h:'คำบอก tone ที่พบในตัวเลือก'},
+    {table:{head:['คำ','ความหมาย'],rows:[
+      ['<i>positive / enthusiastic</i>','ชื่นชม กระตือรือร้น'],
+      ['<i>negative / critical</i>','ติ วิจารณ์'],
+      ['<i>balanced / mixed</i>','มีทั้งข้อดีและข้อเสีย'],
+      ['<i>neutral / objective</i>','เป็นกลาง เล่าข้อเท็จจริง'],
+      ['<i>disappointed</i>','ผิดหวัง'],
+      ['<i>sarcastic</i>','ประชดประชัน']]}},
+    {call:'key',title:'📌 จำไว้',text:'รีวิวในข้อสอบส่วนใหญ่เป็นแบบ <b>balanced</b> คือมีทั้งข้อดีและข้อเสีย อ่านย่อหน้าสุดท้าย (<i>Overall…</i>) ก่อน จะรู้ทัศนคติรวมของผู้เขียน'},
+    {call:'warn',title:'⚠️ ตัวลวงที่พบบ่อย',list:['คำสุดโต่ง เช่น <i>always, never, only, completely, the cheapest</i> มักเกินกว่าที่บทบอก','ตัวเลขถูกแต่เงื่อนไขผิด เช่น ราคาก่อนลดกับหลังลด หรือตัวเลขบนกล่องกับการใช้งานจริง','ข้อมูลที่จริงในชีวิต แต่ไม่มีในบทอ่าน','ข้อความถูกครึ่งเดียว เช่น ครึ่งแรกตรงกับบท แต่ครึ่งหลังผิด']},
+    {call:'trick',title:'🎯 Tricks เด็ด',list:[
+      '<b>คำถามก่อน บทอ่านทีหลัง:</b> โฆษณาสั้น อ่านคำถามก่อนแล้วสแกนหาคำตอบ เร็วกว่าอ่านทั้งชิ้นแล้วค่อยดูคำถาม',
+      '<b>เงื่อนไขซ่อนอยู่ท้ายโฆษณา:</b> ตัวหนา ตัวเอียง ดอกจัน (*) และบรรทัดเล็กท้ายโฆษณา มักเป็นเงื่อนไขที่ข้อสอบเอามาถาม',
+      '<b>โจทย์คำนวณราคา:</b> ตัวเลือกผิดมักเป็น "ราคาก่อนลด" "ราคาที่ลืมเงื่อนไขฟรี" และ "เฉพาะยอดส่วนลด" คิดครบทุกเงื่อนไขก่อนเลือก',
+      '<b>ดาวและหัวเรื่องบอก tone:</b> 3 ดาว และหัวเรื่องที่มี <i>but</i> หรือเครื่องหมายจุลภาคคั่นข้อดีข้อเสีย มักเป็น balanced',
+      '<b>อย่าเดาคำจากส่วนของคำ:</b> <i>shortlisted</i> ไม่ได้แปลว่า "เวลาสั้น" ให้อ่านประโยครอบ ๆ แล้วลองแทนที่ด้วยตัวเลือก']}
+  ],
+  vocab:[
+    ['affordable','adj.','ราคาไม่แพง ซื้อได้','The café offers affordable day passes for students.'],
+    ['discount','n./v.','ส่วนลด / ลดราคา','Students get a 20% discount with a valid ID.'],
+    ['valid','adj.','ใช้ได้ ยังไม่หมดอายุ','This coupon is valid until the end of the month.'],
+    ['free of charge / at no cost','วลี','ฟรี ไม่เสียค่าใช้จ่าย','The company replaced the case at no cost.'],
+    ['eligible (for)','adj.','มีสิทธิ์ มีคุณสมบัติ','You must be 18 or older to be eligible.'],
+    ['apply (for)','v.','สมัคร','Apply online by January 15.'],
+    ['requirement','n.','คุณสมบัติที่ต้องมี ข้อกำหนด','Basic English is one of the requirements.'],
+    ['provide','v.','จัดหาให้','The program provides meals and accommodation.'],
+    ['accommodation','n.','ที่พัก','Shared accommodation is included.'],
+    ['feature','n.','คุณสมบัติเด่น ฟังก์ชัน','The noise-cancelling feature works well.'],
+    ['durable','adj.','ทนทาน','I want a phone case that is durable.'],
+    ['value for money','วลี','คุ้มค่าเงิน','These earbuds are great value for money.'],
+    ['letdown','n.','สิ่งที่ทำให้ผิดหวัง','The battery was a real letdown.'],
+    ['impressive','adj.','น่าประทับใจ','The sound quality is impressive for the price.'],
+    ['refund','n./v.','เงินคืน / คืนเงิน','If you are not happy, you can ask for a full refund.']
+  ],
+  vocabQuiz:[
+    {s:'The hotel was clean, comfortable, and ______: only 600 baht a night.',o:['affordable','durable','eligible','valid'],a:0,e:'affordable = ราคาไม่แพง ตรงกับ 600 บาทต่อคืน'},
+    {s:'Sorry, this coupon is no longer ______. It expired last week.',o:['impressive','valid','affordable','durable'],a:1,e:'valid = ยังใช้ได้ คูปองหมดอายุแล้วจึงไม่ valid'},
+    {s:'The new phone has an amazing camera ______ that works well at night.',o:['refund','requirement','feature','accommodation'],a:2,e:'feature = ฟังก์ชันหรือคุณสมบัติเด่นของสินค้า'},
+    {s:'The shoes broke after two weeks, so I asked the shop for a ______.',o:['feature','discount','requirement','refund'],a:3,e:'ของเสียแล้วขอเงินคืน = ask for a refund'},
+    {s:'Only students under 25 are ______ for this special price.',o:['eligible','durable','impressive','affordable'],a:0,e:'be eligible for = มีสิทธิ์ได้รับ'},
+    {s:'My old backpack is very ______. I’ve used it every day for five years.',o:['valid','durable','eligible','affordable'],a:1,e:'durable = ทนทาน ใช้ทุกวันมา 5 ปี'},
+    {s:'The movie had great reviews, but the ending was a real ______.',o:['feature','refund','letdown','requirement'],a:2,e:'but บอกว่าตรงข้ามกับรีวิวดี → letdown = สิ่งที่ทำให้ผิดหวัง'},
+    {s:'The tour price includes hotel ______ for three nights.',o:['letdown','discount','feature','accommodation'],a:3,e:'hotel accommodation = ที่พักโรงแรม'},
+    {s:'If you buy two T-shirts, you get the third one ______.',o:['free of charge','value for money','a letdown','eligible'],a:0,e:'free of charge = ฟรี ไม่เสียเงิน'},
+    {s:'The library will ______ laptops for students who need them.',o:['apply','provide','refund','require'],a:1,e:'provide = จัดหาให้ ตรงกับ "for students who need them"'}
+  ],
+  practice:{
+    title:'Ads & Review Set (15 ข้อ)', minutes:16,
+    strategy:['อ่านคำถามก่อนบททุกครั้ง แล้ววงคำสำคัญ เช่น <b>NOT, EXCEPT, cheapest, main purpose</b>','<b>โฆษณา:</b> สแกนหาตัวเลข ราคา วันที่ และเงื่อนไขในตัวหนาหรือบรรทัดท้าย','<b>คำนวณ:</b> เขียนตัวเลขลงกระดาษทด และใช้ทุกเงื่อนไข (ส่วนลด ของฟรี ช่วงเวลา)','<b>รีวิว:</b> อ่านหัวเรื่อง ดาว และย่อหน้าสุดท้ายก่อน เพื่อรู้ทัศนคติรวม','เวลา: 15 ข้อ ≈ 16 นาที (โฆษณา 9 ข้อ ≈ 9 นาที / รีวิว 6 ข้อ ≈ 7 นาที)'],
+    groups:[
+      {label:'Reading: Advertisement 1', type:'text', html:'<h3 style="text-align:center">THE QUIET CORNER</h3><p style="text-align:center"><i>Study Café &amp; Co-working Space · Open 8:00 a.m. – 11:00 p.m. daily</i></p><p>Need a calm place to focus? The Quiet Corner offers fast Wi-Fi, comfortable desks, and free drinking water for every guest.</p><ul class="clean"><li><b>Hourly pass:</b> 40 baht per hour</li><li><b>Day pass:</b> 199 baht (unlimited hours on the same day)</li><li><b>Student discount:</b> 20% off day passes with a valid student ID</li><li><b>Private study rooms</b> (up to 4 people): 150 baht per hour, booking required</li><li>Silent Zone on the 2nd floor: phone calls are not allowed</li></ul><p style="text-align:center"><b>Show this ad at the counter before November 30 and get a free iced tea!</b></p>',
+       items:[
+        {sec:'Reading',tag:'Target',d:'ง่าย',stem:'Who would be MOST interested in this advertisement?',o:['People who need a quiet place to study or work','People who want to learn how to make coffee','People looking for an apartment to rent','People looking for a part-time job at a café'],a:0,
+         e:'โฆษณาขายพื้นที่เงียบสำหรับอ่านหนังสือและทำงาน (Study Café & Co-working Space)',x:['ไม่มีคอร์สสอนทำกาแฟ','ไม่ได้ให้เช่าที่พัก มีแค่พื้นที่และห้องรายชั่วโมง','ไม่ได้รับสมัครงาน']},
+        {sec:'Reading',tag:'Detail',d:'ง่าย',stem:'What does EVERY guest get for free?',o:['A private study room','An iced tea','Drinking water','A day pass'],a:2,
+         e:'"free drinking water for every guest"',x:['ห้องส่วนตัวคิดชั่วโมงละ 150 บาท','⚠️ ชาเย็นฟรีเฉพาะคนที่แสดงโฆษณาก่อน 30 พ.ย. ไม่ใช่ทุกคน','Day pass ราคา 199 บาท']},
+        {sec:'Reading',tag:'คำนวณ',d:'ยาก',stem:'Nida, a university student, wants to study at the café from 9 a.m. to 5 p.m. tomorrow. What is the cheapest price she can pay?',o:['320 baht','199 baht','40 baht','159.20 baht'],a:3,
+         e:'แบบรายชั่วโมง 8 × 40 = 320 บาท แต่ day pass 199 บาท ลด 20% ด้วยบัตรนักศึกษา = 199 × 0.8 = 159.20 บาท',x:['คิดรายชั่วโมง ซึ่งแพงกว่า day pass','ลืมส่วนลดนักศึกษา','เป็นราคาแค่ 1 ชั่วโมง']},
+        {sec:'Reading',tag:'NOT',d:'ปานกลาง',stem:'Which of the following is NOT true about The Quiet Corner?',o:['It is open every day.','Guests can make phone calls anywhere in the café.','Private study rooms must be booked in advance.','Up to four people can use a private study room.'],a:1,
+         e:'ชั้น 2 เป็น Silent Zone ห้ามคุยโทรศัพท์ จึงคุยได้ไม่ทุกที่',x:['ข้อความนี้จริง (open daily) จึงไม่ใช่คำตอบ','ข้อความนี้จริง (booking required) จึงไม่ใช่คำตอบ','ข้อความนี้จริง (up to 4 people) จึงไม่ใช่คำตอบ']},
+        {sec:'Reading',tag:'Vocabulary in context',d:'ปานกลาง',stem:'The word “valid” in the advertisement is closest in meaning to ______.',o:['officially accepted and not expired','expensive','brand-new','colorful'],a:0,
+         e:'valid student ID = บัตรนักศึกษาที่ใช้ได้ ยังไม่หมดอายุ',x:['ไม่เกี่ยวกับราคา','บัตรไม่จำเป็นต้องใหม่ แค่ยังใช้ได้','ไม่เกี่ยวกับสี']}
+       ]},
+      {label:'Reading: Advertisement 2', type:'text', html:'<h3 style="text-align:center">SEA TURTLE VOLUNTEER PROGRAM</h3><p style="text-align:center"><i>Koh Lanta, Krabi · March 1 – April 30</i></p><p>Help protect endangered sea turtles! Volunteers will clean beaches, guard nests at night, and teach tourists about turtle conservation.</p><p><b>We are looking for people who:</b></p><ul class="clean"><li>are 18 years old or above</li><li>can stay for at least 2 weeks</li><li>can communicate in basic English</li><li>are comfortable working outdoors in hot weather</li></ul><p><b>We provide:</b> shared accommodation, three meals a day, and a certificate. Volunteers pay for their own travel to Krabi.</p><p style="text-align:center">Apply online by January 15. Only shortlisted applicants will be contacted for a video interview.</p>',
+       items:[
+        {sec:'Reading',tag:'Detail (paraphrase)',d:'ง่าย',stem:'Which of the following does the program provide?',o:['Travel to Krabi','A monthly salary','A private room','Daily meals'],a:3,
+         e:'"three meals a day" ตรงกับ daily meals (paraphrase)',x:['⚠️ อาสาสมัครจ่ายค่าเดินทางเอง','ไม่มีเงินเดือน','ที่พักเป็นแบบ shared (ใช้ร่วมกับคนอื่น)']},
+        {sec:'Reading',tag:'Inference',d:'ยาก',stem:'Kanya is 19, speaks basic English, and has a three-week break in April. What can be inferred?',o:['She is too young to join the program.','She cannot join because the program ends in March.','She meets the age and time requirements.','She will definitely get a video interview.'],a:2,
+         e:'อายุ 19 (ต้อง 18 ขึ้นไป) และอยู่ได้ 3 สัปดาห์ (ต้องอย่างน้อย 2) ในเดือนเมษายน ซึ่งอยู่ในช่วงโครงการ',x:['ต้องอายุ 18 ขึ้นไป อายุ 19 จึงผ่าน','โครงการถึง 30 เมษายน','⚠️ เฉพาะคนที่ผ่านการคัดเลือกเบื้องต้นจึงได้สัมภาษณ์ คำว่า definitely เกินข้อมูล']},
+        {sec:'Reading',tag:'Vocabulary in context',d:'ปานกลาง',stem:'The word “shortlisted” is closest in meaning to ______.',o:['rejected','selected for the final stage','paid in advance','late'],a:1,
+         e:'shortlisted = ผ่านการคัดเลือกรอบแรก เข้ารอบสุดท้าย',x:['ความหมายตรงข้าม','ไม่เกี่ยวกับการจ่ายเงิน','⚠️ short ในคำนี้ไม่ได้แปลว่าเวลาน้อย อย่าเดาจากส่วนของคำ']},
+        {sec:'Reading',tag:'Purpose',d:'ง่าย',stem:'What is the main purpose of this advertisement?',o:['To find volunteers for a turtle conservation project','To sell holiday packages to Koh Lanta','To warn tourists about dangerous sea turtles','To advertise a hotel in Krabi'],a:0,
+         e:'บอกงาน คุณสมบัติ สิ่งที่ให้ และวิธีสมัคร จึงเป็นการรับสมัครอาสาสมัคร',x:['ไม่ได้ขายแพ็กเกจท่องเที่ยว','เต่าไม่ได้อันตราย อาสาสมัครไปช่วยปกป้องเต่า','ที่พักเป็นสิ่งที่ให้อาสาสมัคร ไม่ใช่สิ่งที่โฆษณาขาย']}
+       ]},
+      {label:'Reading: Product Review', type:'text', html:'<h3 style="text-align:center">SoundPeak Air 3: Great Sound, Short Battery</h3><p style="text-align:center"><i>Reviewed by Carlos · ★★★☆☆</i></p><p>(1) I bought the SoundPeak Air 3 wireless earbuds two months ago for 1,890 baht, mainly for listening to podcasts on my way to school. The first thing I noticed was the sound quality. For the price, it is impressive: voices are clear, and the bass is strong without being too heavy.</p><p>(2) The noise-cancelling feature is also better than I expected. On a crowded skytrain, I can hardly hear the people around me. The earbuds are light and comfortable, so I can wear them for a long time without any pain.</p><p>(3) Unfortunately, the battery is a real letdown. The box says the earbuds last “up to 8 hours,” but with noise-cancelling turned on, mine last only about four. The charging case also feels cheap, and its lid became loose after a few weeks.</p><p>(4) Customer service, on the other hand, was excellent. When I contacted the company about the lid, they sent me a new case within three days at no cost.</p><p>(5) Overall, the SoundPeak Air 3 is a good choice for students who want decent sound on a budget. However, if you often travel long distances, you might want to pay more for a model with a longer battery life.</p>',
+       items:[
+        {sec:'Reading',tag:'Tone / Attitude',d:'ง่าย',stem:'What is the reviewer’s overall attitude toward the SoundPeak Air 3?',o:['Completely satisfied','Very negative; he regrets buying it','Balanced: good value, but with some weaknesses','Unsure, because he has used it for only a day'],a:2,
+         e:'ชมเสียง การตัดเสียงรบกวน และบริการ แต่ติแบตเตอรี่และกล่องชาร์จ แล้วสรุปว่าเหมาะกับนักเรียนที่งบน้อย (3 ดาว)',x:['มีข้อเสียเรื่องแบตและกล่องชาร์จ','ยังแนะนำสำหรับนักเรียนที่งบน้อย','ใช้มา 2 เดือนแล้ว']},
+        {sec:'Reading',tag:'Detail',d:'ง่าย',stem:'Which of the following does the reviewer like about the earbuds?',o:['The charging case feels strong.','The battery lasts more than eight hours.','They are the cheapest earbuds on the market.','They block out noise well.'],a:3,
+         e:'ย่อหน้า 2: "On a crowded skytrain, I can hardly hear the people around me."',x:['กล่องชาร์จดูถูกและฝาหลวม','⚠️ 8 ชั่วโมงเป็นตัวเลขบนกล่อง ใช้จริงได้ราว 4 ชั่วโมง','⚠️ บอกแค่ว่าคุ้มราคา ไม่ได้บอกว่าถูกที่สุด (คำสุดโต่ง)']},
+        {sec:'Reading',tag:'Vocabulary in context',d:'ปานกลาง',stem:'The word “letdown” in paragraph 3 is closest in meaning to ______.',o:['surprise','disappointment','improvement','discount'],a:1,
+         e:'ประโยคขึ้นต้นด้วย Unfortunately และตามด้วยแบตหมดเร็ว letdown จึงแปลว่าสิ่งที่ทำให้ผิดหวัง',x:['บริบทเป็นเชิงลบชัดเจน ไม่ใช่ความประหลาดใจ','ความหมายตรงข้าม','ไม่เกี่ยวกับราคา']},
+        {sec:'Reading',tag:'EXCEPT',d:'ปานกลาง',stem:'All of the following are true according to the review EXCEPT ______.',o:['the reviewer listens to podcasts on his way to school','the company sent a new case without charging him','with noise-cancelling on, the battery lasts about half the time stated on the box','the earbuds hurt the reviewer’s ears after long use'],a:3,
+         e:'ย่อหน้า 2 บอกว่าใส่นาน ๆ ได้ "without any pain"',x:['ข้อความนี้จริง (ย่อหน้า 1) จึงไม่ใช่คำตอบ','ข้อความนี้จริง (at no cost) จึงไม่ใช่คำตอบ','ข้อความนี้จริง (4 จาก 8 ชั่วโมง = ครึ่งหนึ่ง) จึงไม่ใช่คำตอบ']},
+        {sec:'Reading',tag:'Reference',d:'ปานกลาง',stem:'The word “they” in paragraph 4 refers to ______.',o:['the company','the earbuds','the people on the skytrain','students on a budget'],a:0,
+         e:'"When I contacted the company… they sent me a new case" they จึงหมายถึงบริษัท',x:['หูฟังส่งกล่องเองไม่ได้','อยู่ในย่อหน้า 2 ไม่เกี่ยวกับการส่งของ','อยู่ในย่อหน้า 5']},
+        {sec:'Reading',tag:'Inference',d:'ยาก',stem:'Who would the reviewer probably NOT recommend the SoundPeak Air 3 to?',o:['A student who listens to music on a 20-minute bus ride','Someone who often takes long international flights','A person with a small budget','Someone who wants clear voices for podcasts'],a:1,
+         e:'ย่อหน้าสุดท้าย: ถ้าเดินทางไกลบ่อย ควรจ่ายเพิ่มเพื่อซื้อรุ่นที่แบตอยู่นานกว่า',x:['เดินทางสั้น แบต 4 ชั่วโมงเพียงพอ','ผู้รีวิวแนะนำสำหรับคนงบน้อย','ผู้รีวิวชมว่าเสียงพูดชัด']}
+       ]}
+    ]
+  },
+  homework:['Vocabulary Set 4: ทดสอบตัวเองด้วยบัตรคำจนจำได้ทั้ง 15 คำ','ทำ Ads & Review Set ในโหมดจับเวลา 16 นาที ให้ได้ 12/15 ขึ้นไป','หาโฆษณาและรีวิวภาษาอังกฤษจริงอย่างละ 1 ชิ้น แล้วเขียน purpose, target customer และ tone','บันทึกข้อที่ผิดลง Error Log']
 }
 };
 
