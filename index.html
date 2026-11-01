@@ -89,6 +89,7 @@ button{font:inherit;cursor:pointer}
 .call{border-left:5px solid var(--tip-line);background:var(--tip);border-radius:6px;padding:12px 14px}
 .call.key{border-left-color:var(--key-line);background:var(--key)}
 .call.warn{border-left-color:var(--bad);background:var(--bad-soft)}
+.call.trick{border-left-color:var(--accent);background:var(--accent-soft)}
 .bank{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .bk{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .bk h3{font-size:1.02rem}
@@ -178,7 +179,8 @@ const CONTENT = {
   technique:[
     {table:{head:['ส่วน','ข้อ','คะแนน','เวลาแนะนำ'],num:true,rows:[['Listening & Speaking','1–20','25','15 นาที'],['Reading','21–60','50','55 นาที'],['Writing','61–80','25','15 นาที'],['ทวนข้อที่ทำเครื่องหมาย','','','5 นาที']]}},
     {call:'key',title:'📌 จำไว้',list:['ส่วน Listening & Speaking ไม่มีเสียง เป็นการอ่านบทสนทนาแล้วเลือกประโยคเติม','ทุกข้อได้ 1.25 คะแนนเท่ากัน ติดข้อไหนเกิน 1 นาที ให้เลือกคำตอบที่ดีที่สุดไว้ ทำเครื่องหมาย แล้วไปต่อ']},
-    {call:'tip',title:'💡 เคล็ดลับ',text:'จดเวลาที่ต้องทำแต่ละส่วนให้เสร็จไว้มุมกระดาษ เช่น เริ่ม 9.00 → L&S เสร็จ 9.15 → Reading เสร็จ 10.10 → Writing เสร็จ 10.25'}
+    {call:'tip',title:'💡 เคล็ดลับ',text:'จดเวลาที่ต้องทำแต่ละส่วนให้เสร็จไว้มุมกระดาษ เช่น เริ่ม 9.00 → L&S เสร็จ 9.15 → Reading เสร็จ 10.10 → Writing เสร็จ 10.25'},
+    {call:'trick',title:'🎯 Tricks เด็ด',list:['<b>ห้ามเว้นว่าง:</b> ข้อที่ไม่รู้ให้เดาไว้ก่อนเสมอ แล้วทำเครื่องหมายไว้กลับมาทวนถ้ามีเวลา','<b>เก็บข้อเร็วก่อน:</b> ถ้าอ่านช้า ลองทำ Writing (ข้อ 61–80) ต่อจาก L&S แล้วค่อยทำ Reading เพราะ Writing ใช้เวลาต่อข้อน้อยกว่า และทุกข้อได้คะแนนเท่ากัน','<b>ตัวเลือกฝาแฝด:</b> ถ้ามี 2 ตัวเลือกที่ความหมายเหมือนกัน มักผิดทั้งคู่ เพราะคำตอบถูกมีได้ข้อเดียว','<b>ระวังตัวเลือกลอกคำ:</b> ใน Reading คำตอบถูกมักเขียนใหม่ด้วยคำอื่น (paraphrase) ตัวเลือกที่ลอกคำจากบทมาตรง ๆ มักมีส่วนที่ผิดซ่อนอยู่','<b>ระบายคำตอบเป็นช่วง:</b> ถ้าสอบบนกระดาษ ให้ระบายเมื่อจบแต่ละบทอ่าน และเช็กเลขข้อทุกครั้ง ระบายผิดบรรทัดข้อเดียวอาจผิดต่อกันทั้งชุด']}
   ],
   vocab:[
     ['deadline','n.','กำหนดส่ง','Nipa worked all night to meet the deadline.'],
@@ -206,10 +208,12 @@ const CONTENT = {
     {s:'Wei studied a little every day instead of trying to ______ the night before the exam.',o:['enroll','require','assess','cram'],a:3,e:'cram = อ่านอัดก่อนสอบ ตรงข้ามกับเรียนวันละนิด'},
     {s:'Kenji was awarded a ______ to study engineering in Australia.',o:['scholarship','motivation','retention','deadline'],a:0,e:'be awarded a scholarship = ได้รับทุนการศึกษา'},
     {s:'Practicing a little every day is better than studying for ten hours once a week. Try to be ______.',o:['consistently','consistency','consistent','consist'],a:2,e:'หลัง be ต้องเป็น adjective → consistent'},
+    {s:'Students who want to ______ in the summer course must pay the fee by June 1.',o:['enroll','assess','cram','retain'],a:0,e:'enroll (in) = ลงทะเบียนเรียน ใช้กับคอร์สหรือหลักสูตร'},
+    {s:'In the interview, the teacher will ______ your speaking skills and give you a score.',o:['retain','improve','procrastinate','assess'],a:3,e:'assess = ประเมิน ตรงกับการให้คะแนน'},
   ],
   practice:{
-    title:'Warm-up Set (12 ข้อ)', minutes:12,
-    strategy:['ทำตามลำดับเหมือนข้อสอบจริง: บทสนทนา → โฆษณา → เติมคำ → เรียงประโยค','<b>บทสนทนา:</b> อ่านประโยคหลังช่องว่างก่อนเสมอ แล้วเลือกตัวที่รับกันได้','<b>โฆษณา:</b> อ่านคำถามก่อน แล้วสแกนหาตัวเลข ราคา และเงื่อนไข เช่น ส่วนลดหรือสิ่งที่ต้องนำมาเอง','<b>เติมคำ:</b> ดูโครงสร้างประโยคก่อนความหมาย หาประธานและกริยาแท้ของประโยคให้ได้','<b>เรียงประโยค:</b> หาประโยคใจความหลักที่ไม่ขึ้นต้นด้วยคำเชื่อม แล้วใช้ตัดตัวเลือกที่ผิด'],
+    title:'Warm-up Set (15 ข้อ)', minutes:15,
+    strategy:['ทำตามลำดับเหมือนข้อสอบจริง: บทสนทนา → โฆษณา → ตาราง → เติมคำ → เรียงประโยค','<b>บทสนทนา:</b> อ่านประโยคหลังช่องว่างก่อนเสมอ แล้วเลือกตัวที่รับกันได้','<b>โฆษณา:</b> อ่านคำถามก่อน แล้วสแกนหาตัวเลข ราคา และเงื่อนไข เช่น ส่วนลดหรือสิ่งที่ต้องนำมาเอง','<b>ตาราง:</b> อ่านชื่อตารางและหน่วยก่อนดูตัวเลข แล้วคำนวณบนกระดาษทดทุกครั้ง อย่าคิดในใจ','<b>เติมคำ:</b> ดูโครงสร้างประโยคก่อนความหมาย หาประธานและกริยาแท้ของประโยคให้ได้','<b>เรียงประโยค:</b> หาประโยคใจความหลักที่ไม่ขึ้นต้นด้วยคำเชื่อม แล้วใช้ตัดตัวเลือกที่ผิด'],
     groups:[
       {label:'Listening & Speaking: Short Conversation', type:'dialogue', situation:'Two friends planning to study together',
        lines:[['Kitti','Hey Yuki, are you free this Saturday? ____(1)____'],['Yuki','I’d love to, but I have a piano lesson in the morning.'],['Kitti','____(2)____'],['Yuki','Afternoon works. Where should we meet?'],['Kitti','How about the city library? ____(3)____'],['Yuki','Good idea. It gets crowded after lunch. Let’s meet at one, then.'],['Kitti','____(4)____ I’ll bring my notes from last week.'],['Yuki','Great. See you there!']],
@@ -232,7 +236,14 @@ const CONTENT = {
         {sec:'Reading',tag:'คำนวณ',d:'ยาก',stem:'Pim registers on April 20. How much does she pay for the course?',o:['2,400 baht','240 baht','2,640 baht','2,160 baht'],a:3,
          e:'สมัครก่อน 1 พ.ค. ได้ลด 10%: 2,400 − 240 = 2,160 บาท',x:['ลืมส่วนลด','เป็นจำนวนส่วนลด ไม่ใช่ราคาที่จ่าย','บวกส่วนลดแทนการหัก']}
        ]},
-      {label:'Writing: Text Completion', type:'text', html:'<p>Street food is an important part of Thai culture. Many tourists say that tasting local dishes ____(8)____ the highlight of their trip. However, food stalls that ____(9)____ on busy roads can face problems with hygiene and traffic. ____(10)____, some cities have created special night-market areas. These areas are cleaner and safer, and they still keep the lively atmosphere ____(11)____ visitors love.</p>',
+      {label:'Reading: Visual', type:'text', html:'<p style="text-align:center"><b>Average Weekly Screen Time of Grade 12 Students at Riverside School (hours)</b></p><div class="tbl"><table><thead><tr><th>Activity</th><th>Weekdays (Mon–Fri)</th><th>Weekend (Sat–Sun)</th></tr></thead><tbody><tr><td>Social media</td><td class="num">10</td><td class="num">8</td></tr><tr><td>Online games</td><td class="num">4</td><td class="num">6</td></tr><tr><td>Studying online</td><td class="num">7</td><td class="num">2</td></tr><tr><td>Watching videos</td><td class="num">5</td><td class="num">7</td></tr></tbody></table></div>',
+       items:[
+        {sec:'Reading',tag:'Visual',d:'ง่าย',stem:'On weekdays, students spend the most time on ______.',o:['online games','studying online','social media','watching videos'],a:2,
+         e:'ช่อง Weekdays ค่าสูงสุดคือ Social media 10 ชั่วโมง',x:['4 ชั่วโมง น้อยที่สุดในวันธรรมดา','7 ชั่วโมง มากเป็นอันดับสอง ⚠️ ตัวลวงสำหรับคนที่อ่านแถวผิด','5 ชั่วโมง']},
+        {sec:'Reading',tag:'Visual + คำนวณ (NOT)',d:'ยาก',stem:'Which of the following statements is NOT true?',o:['Students spend more time on online games at the weekend than on weekdays.','Time spent studying online drops by more than half at the weekend.','Students spend 12 hours a week in total watching videos.','At the weekend, students spend twice as much time on social media as on online games.'],a:3,
+         e:'วันหยุด social media 8 ชั่วโมง เกม 6 ชั่วโมง ไม่ใช่ 2 เท่า (ถ้า 2 เท่าต้องเป็น 12 ชั่วโมง)',x:['ข้อความนี้จริง (6 > 4) จึงไม่ใช่คำตอบ','ข้อความนี้จริง (7 → 2 ลดลงมากกว่าครึ่ง) จึงไม่ใช่คำตอบ','ข้อความนี้จริง (5 + 7 = 12) จึงไม่ใช่คำตอบ']}
+       ]},
+      {label:'Writing: Text Completion', type:'text', html:'<p>Street food is an important part of Thai culture. Many tourists say that tasting local dishes ____(10)____ the highlight of their trip. However, food stalls that ____(11)____ on busy roads can face problems with hygiene and traffic. ____(12)____, some cities have created special night-market areas. These areas are cleaner and safer, and they still keep the lively atmosphere ____(13)____ visitors love.</p>',
        items:[
         {sec:'Writing',tag:'Subject-verb agreement',d:'ปานกลาง',o:['are','is','being','have been'],a:1,
          e:'ประธานคือ "tasting local dishes" (V-ing เป็นประธาน) นับเป็นเอกพจน์ → is',x:['ใช้กับประธานพหูพจน์ ⚠️ หลอกด้วย dishes','ไม่ใช่กริยาแท้','ใช้กับประธานพหูพจน์']},
@@ -247,10 +258,15 @@ const CONTENT = {
        items:[
         {sec:'Writing',tag:'Paragraph organization',d:'ง่าย',stem:'Choose the best order of the sentences.',o:['D-B-A-C','B-D-A-C','B-C-D-A','B-A-C-D'],a:1,
          e:'B เป็นใจความหลัก → D ให้เหตุผล → A ยกตัวอย่าง (For example) → C สรุป (Therefore)',x:['ใจความหลัก B ต้องมาก่อน','Therefore เป็นข้อสรุป ควรอยู่ท้าย','ตัวอย่างต้องตามหลังเหตุผล D']}
+       ]},
+      {label:'Writing: Paragraph Organization (2)', type:'text', html:'<p><b>A.</b> As a result, many families now save money on their electricity bills.<br><b>B.</b> Solar panels have become a popular choice for homes in Thailand.<br><b>C.</b> This is mainly because the price of panels has fallen sharply over the past ten years.<br><b>D.</b> However, owners still need to clean the panels regularly to keep them working well.</p>',
+       items:[
+        {sec:'Writing',tag:'Paragraph organization',d:'ปานกลาง',stem:'Choose the best order of the sentences.',o:['B-C-A-D','B-A-C-D','C-B-A-D','B-D-C-A'],a:0,
+         e:'B ใจความหลัก → C ให้เหตุผล (This is mainly because) → A ผลที่ตามมา (As a result) → D ข้อควรระวัง (However)',x:['As a result ต้องตามหลังเหตุผล C ไม่ใช่มาก่อน','C ขึ้นต้นด้วย This ซึ่งอ้างถึงสิ่งที่พูดก่อนหน้า จึงเป็นประโยคแรกไม่ได้','However ต้องแย้งสิ่งที่พูดก่อนหน้า วางต่อจากใจความหลักทันทีไม่ได้']}
        ]}
     ]
   },
-  homework:['Vocabulary Set 1: ทำบัตรคำ 15 คำ และทดสอบตัวเองในแท็บคำศัพท์','ทำ Warm-up Set ในโหมดฝึกให้ได้ 10/12 ขึ้นไป','บันทึกข้อที่ผิดลง Error Log ในเอกสาร']
+  homework:['Vocabulary Set 1: ทำบัตรคำ 15 คำ และทดสอบตัวเองในแท็บคำศัพท์','ทำ Warm-up Set ในโหมดฝึกให้ได้ 12/15 ขึ้นไป','บันทึกข้อที่ผิดลง Error Log ในเอกสาร']
 },
 2: {
   goals:['เลือกประโยคเติมบทสนทนาโดยอ่านประโยคหลังช่องว่างก่อน','ใช้สำนวนสื่อสาร 6 กลุ่มที่ออกบ่อยให้ถูกสถานการณ์','ตัดตัวลวงที่ถูกไวยากรณ์แต่ไม่รับกับบทสนทนา'],
@@ -278,7 +294,8 @@ const CONTENT = {
     ]},
     {call:'warn',title:'⚠️ กับดัก Would you mind…?',text:'<i>Would you mind opening the window?</i> แปลว่า "คุณจะว่าอะไรไหมถ้า…" ถ้ายินดีทำให้ตอบ <b>Not at all.</b> หรือ <b>Of course not.</b> (ไม่เป็นไร / ได้เลย / เชิญเลย) ถ้าตอบ <i>Yes, I do.</i> แปลว่า "ว่าสิ" คือไม่ยอม (ปฏิเสธ)'},
     {call:'warn',title:'⚠️ ตัวลวงที่พบบ่อย',list:['ถูกไวยากรณ์และฟังเป็นธรรมชาติ แต่ไม่รับกับประโยคถัดไป','มีคำซ้ำกับบทสนทนา แต่ความหมายไม่ตรง','ระดับภาษาไม่เหมาะ เช่น พูดกับครูแบบไม่สุภาพ','ใช้สำนวนผิดสถานการณ์ เช่น <i>Lucky you!</i> กับข่าวร้าย']},
-    {call:'tip',title:'💡 เคล็ดลับ',text:'ส่วนนี้มีเวลาเฉลี่ยข้อละ 45 วินาที ถ้าประโยคหลังช่องว่างชัดเจน มักตัดตัวเลือกได้ทันทีโดยไม่ต้องอ่านทุกตัวละเอียด'}
+    {call:'tip',title:'💡 เคล็ดลับ',text:'ส่วนนี้มีเวลาเฉลี่ยข้อละ 45 วินาที ถ้าประโยคหลังช่องว่างชัดเจน มักตัดตัวเลือกได้ทันทีโดยไม่ต้องอ่านทุกตัวละเอียด'},
+    {call:'trick',title:'🎯 Tricks เด็ด',list:['<b>No ที่แปลว่า ได้:</b> <i>Would you mind…?</i> เป็นคำถามเดียวที่ตอบ <i>No / Not at all</i> แล้วแปลว่า ได้เลย','<b><i>Would you like…?</i> ≠ <i>Would you mind…?</i>:</b> Would you like = รับ…ไหม ตอบ <i>Yes, please. / That would be great. / Thanks, but…</i> ตอบ <i>Not at all</i> ไม่ได้','<b>ดู Me too / Me neither:</b> ถ้าประโยคถัดไปคือ <i>So do I. / Me too.</i> ช่องว่างต้องเป็นประโยคบอกเล่า ถ้าเป็น <i>Neither do I. / Me neither.</i> ช่องว่างต้องเป็นประโยคปฏิเสธ','<b>ประโยคถัดไปเป็นคำถามต่อ:</b> ถ้าตามด้วย <i>What happened? / Why? / Really?</i> ช่องว่างต้องเป็นข่าวหรือเรื่องที่ทำให้อยากถาม','<b>ระดับภาษาบอกคำตอบ:</b> คุยกับครู ลูกค้า หรือพนักงาน ให้ตัดตัวเลือกที่ห้วนหรือเป็นกันเองเกินไปทิ้งก่อน']}
   ],
   vocab:[
     ['Would you mind + V-ing?','ขอร้อง','คุณจะว่าอะไรไหมถ้า…','Would you mind turning down the music?'],
@@ -305,11 +322,13 @@ const CONTENT = {
     {s:'A: Would you mind closing the door? B: ______ It’s a bit cold in here.',o:['Not at all.','Yes, I would.','Never mind.','Same to you.'],a:0,e:'Not at all = ไม่เป็นไร / ได้เลย (ยินดีปิดให้) ส่วน Yes, I would = ว่าสิ คือไม่ยอม (ปฏิเสธ)'},
     {s:'A: My laptop broke the night before my presentation. B: ______ Did you lose all your slides?',o:['Congratulations!','Lucky you!','Count me in.','I’m sorry to hear that.'],a:3,e:'ตอบข่าวร้ายด้วยความเห็นใจ'},
     {s:'A: I have a terrible toothache. B: ______ see a dentist today.',o:['Why don’t we','I’d love to','You’d better','Count me in,'],a:2,e:'You’d better + V1 = ควรจะ… ใช้ให้คำแนะนำแบบเตือน'},
-    {s:'A: We’re going to the beach on Sunday. Do you want to come? B: ______ I haven’t been to the sea for ages!',o:['I’m sorry to hear that.','Count me in!','Thanks, but I can manage.','You’d better.'],a:1,e:'Count me in = ฉันไปด้วย / ฉันเอาด้วย ตอบรับคำชวนอย่างกระตือรือร้น'}
+    {s:'A: We’re going to the beach on Sunday. Do you want to come? B: ______ I haven’t been to the sea for ages!',o:['I’m sorry to hear that.','Count me in!','Thanks, but I can manage.','You’d better.'],a:1,e:'Count me in = ฉันไปด้วย / ฉันเอาด้วย ตอบรับคำชวนอย่างกระตือรือร้น'},
+    {s:'A: I’m so sorry I broke your umbrella. B: ______ It was an old one anyway.',o:['Count me in.','Don’t worry about it.','Lucky you!','I couldn’t agree more.'],a:1,e:'Don’t worry about it = ไม่เป็นไร ใช้ตอบคำขอโทษ'},
+    {s:'A: Shall I help you set up the projector? B: ______ I’m not good with technology.',o:['That would be great.','Thanks, but I can manage.','Maybe some other time.','I’m sorry to hear that.'],a:0,e:'รับข้อเสนอ เพราะ B บอกว่าไม่ถนัดเทคโนโลยี ส่วน Thanks, but I can manage ขัดกับเหตุผลนี้'}
   ],
   practice:{
-    title:'Short Conversations Set (12 ข้อ)', minutes:9,
-    strategy:['อ่าน Situation ก่อน เพื่อรู้ว่าใครคุยกับใคร และควรใช้ภาษาระดับไหน','ทุกช่องว่าง อ่านประโยค <b>หลัง</b> ช่องว่างก่อน แล้วถามตัวเองว่า "ประโยคนี้ตอบอะไร"','ตัดตัวเลือกที่ไม่รับกับประโยคถัดไปออกก่อน แม้จะถูกไวยากรณ์ก็ตาม','ระวังสำนวนที่ใช้ผิดสถานการณ์ เช่น ตอบข่าวร้ายด้วย Lucky you!','เวลาเฉลี่ยข้อละ 45 วินาที (12 ข้อ ≈ 9 นาที) ติดข้อไหนให้เลือกไว้ก่อนแล้วไปต่อ'],
+    title:'Short Conversations Set (15 ข้อ)', minutes:11,
+    strategy:['อ่าน Situation ก่อน เพื่อรู้ว่าใครคุยกับใคร และควรใช้ภาษาระดับไหน','ทุกช่องว่าง อ่านประโยค <b>หลัง</b> ช่องว่างก่อน แล้วถามตัวเองว่า "ประโยคนี้ตอบอะไร"','ตัดตัวเลือกที่ไม่รับกับประโยคถัดไปออกก่อน แม้จะถูกไวยากรณ์ก็ตาม','ระวังสำนวนที่ใช้ผิดสถานการณ์ เช่น ตอบข่าวร้ายด้วย Lucky you!','เวลาเฉลี่ยข้อละ 45 วินาที (15 ข้อ ≈ 11 นาที) ติดข้อไหนให้เลือกไว้ก่อนแล้วไปต่อ'],
     groups:[
       {label:'Short Conversation 1', type:'dialogue', situation:'At a bubble tea shop',
        lines:[['Staff','Hi! What can I get for you today?'],['Nipa','____(1)____'],['Staff','Sure. How sweet would you like it? We have 0, 50, and 100 percent.'],['Nipa','50 percent, please. Oh, and ____(2)____'],['Staff','____(3)____'],['Nipa','Thanks. How much is it?'],['Staff','65 baht. ____(4)____'],['Nipa','QR code, please. Here you go.']],
@@ -346,10 +365,144 @@ const CONTENT = {
          e:'ครูตอบ "Monday is fine." จึงต้องเป็นการขอเลื่อนส่งเป็นวันจันทร์',x:['ไม่เกี่ยวกับวันส่ง','เป็นการเสนอช่วยครู ไม่มีเรื่องวันจันทร์','นักเรียนยกเลิกงานเองไม่ได้ และไม่เกี่ยวกับวันจันทร์']},
         {sec:'L&S',tag:'คำแนะนำ',d:'ปานกลาง',o:['Why don’t you send me your outline by Friday? Then I can give you some feedback.','That’s out of the question.','You’re welcome.','Same to you.'],a:0,
          e:'ธนาตอบ "That’s a great idea. I’ll do that." ซึ่งใช้ตอบคำแนะนำ',x:['= เป็นไปไม่ได้ ขัดกับ "Monday is fine."','ใช้ตอบคำขอบคุณ แต่ธนายังไม่ได้ขอบคุณ','ใช้ตอบคำอวยพร']}
+       ]},
+      {label:'Short Conversation 4', type:'dialogue', situation:'At a hotel front desk',
+       lines:[['Hiroshi','Excuse me. I’m in Room 512. ____(13)____'],['Staff','I’m terribly sorry about that, sir. I’ll send someone to fix it right away.'],['Hiroshi','Thank you. Also, I asked for a wake-up call at six this morning, but nobody called me.'],['Staff','____(14)____ It won’t happen again. Would you like a free breakfast today to make up for it?'],['Hiroshi','____(15)____ My taxi to the airport is already waiting outside.'],['Staff','I understand. Have a safe flight, sir.']],
+       items:[
+        {sec:'L&S',tag:'ร้องเรียน',d:'ง่าย',o:['Could you recommend a good restaurant nearby?','I’m afraid there’s a problem with the air conditioner. It isn’t working.','I’d like to book another night, please.','The room is wonderful. Thank you so much.'],a:1,
+         e:'พนักงานขอโทษและจะส่งคนไป "fix it" แปลว่าแขกเพิ่งแจ้งว่ามีของเสีย',x:['ถามร้านอาหาร พนักงานจะไม่ขอโทษหรือส่งคนไปซ่อม','จองเพิ่ม ไม่มีอะไรต้องซ่อม','ชมห้อง พนักงานจะไม่ขอโทษ']},
+        {sec:'L&S',tag:'ขอโทษ',d:'ปานกลาง',o:['That’s all right. Don’t worry about it.','Lucky you! You could sleep a little longer.','You’d better set your own alarm next time.','I do apologize. There must have been a mistake with our system.'],a:3,
+         e:'พนักงานต้องขอโทษ เพราะประโยคต่อมาคือ "It won’t happen again." และเสนออาหารเช้าฟรีเพื่อชดเชย',x:['เป็นคำพูดของฝ่ายที่ให้อภัย (แขก) ⚠️ สลับบทบาท','ไม่สุภาพ และไม่ใช่การขอโทษ','โทษลูกค้า ขัดกับ "It won’t happen again."']},
+        {sec:'L&S',tag:'ปฏิเสธข้อเสนอ',d:'ยาก',o:['That’s kind of you, but I’ll have to pass.','Not at all.','That would be great. I’m starving.','I couldn’t agree more.'],a:0,
+         e:'ฮิโรชิต้องรีบไปสนามบิน จึงปฏิเสธข้อเสนออย่างสุภาพ I’ll have to pass = ขอผ่าน (ปฏิเสธอย่างสุภาพ)',x:['⚠️ Not at all ใช้ตอบ Would you mind…? แต่นี่คือ Would you like…?','รับข้อเสนอ ขัดกับแท็กซี่ที่รออยู่ข้างนอก','ใช้แสดงความเห็นด้วย แต่พนักงานเสนอสิ่งของ ไม่ได้แสดงความเห็น']}
        ]}
     ]
   },
-  homework:['Vocabulary Set 2: ทดสอบตัวเองด้วยบัตรคำจนจำได้ทั้ง 15 สำนวน','ทำ Short Conversations Set ในโหมดจับเวลา 9 นาที ให้ได้ 10/12 ขึ้นไป','หลังส่งคำตอบ กด "ฟังบทสนทนา" แล้วพูดตามทีละประโยค (shadowing) อย่างน้อย 1 บท','บันทึกข้อที่ผิดลง Error Log']
+  homework:['Vocabulary Set 2: ทดสอบตัวเองด้วยบัตรคำจนจำได้ทั้ง 15 สำนวน','ทำ Short Conversations Set ในโหมดจับเวลา 11 นาที ให้ได้ 12/15 ขึ้นไป','หลังส่งคำตอบ กด "ฟังบทสนทนา" แล้วพูดตามทีละประโยค (shadowing) อย่างน้อย 1 บท','บันทึกข้อที่ผิดลง Error Log']
+},
+3: {
+  goals:['เข้าใจความหมายและสถานการณ์ที่ใช้สำนวนพูดที่ออกบ่อย','เลือก discourse marker จากทิศทางของประโยคก่อนและหลังช่องว่าง','ตามเรื่องในบทสนทนายาวจนถึงจุดหักมุมตอนจบ'],
+  technique:[
+    {h:'Idioms ที่ออกบ่อย'},
+    {table:{head:['สำนวน','ความหมาย','ใช้เมื่อ'],rows:[
+      ['<i>I’m all ears.</i>','พร้อมฟัง / เล่ามาเลย','อีกฝ่ายกำลังจะเล่าเรื่อง'],
+      ['<i>be up to my ears in…</i>','งานล้นมือ ยุ่งมาก','บ่นว่างานเยอะ'],
+      ['<i>When it rains, it pours.</i>','ซวยซ้ำซวยซ้อน','เรื่องร้ายเกิดติดกันหลายเรื่อง'],
+      ['<i>a piece of cake</i>','ง่ายมาก','พูดถึงข้อสอบหรืองานที่ทำได้สบาย'],
+      ['<i>over my head</i>','ยากเกินจะเข้าใจ','เรียนหรืออ่านแล้วไม่เข้าใจ'],
+      ['<i>under the weather</i>','ไม่ค่อยสบาย','อธิบายว่าทำไมไม่มาเรียนหรือไม่มาทำงาน'],
+      ['<i>hit the books</i>','อ่านหนังสืออย่างหนัก','ก่อนสอบ'],
+      ['<i>break the ice</i>','ละลายพฤติกรรม','เริ่มทำความรู้จักกับคนใหม่'],
+      ['<i>That rings a bell.</i>','ฟังคุ้น ๆ','จำชื่อหรือสถานที่ได้ลาง ๆ'],
+      ['<i>Take it easy.</i>','ใจเย็น ๆ / พักบ้าง','ปลอบคนที่เครียดหรือรีบ'],
+      ['<i>Stick to the point.</i>','พูดให้ตรงประเด็น','อีกฝ่ายพูดออกนอกเรื่อง']]}},
+    {h:'คู่สำนวนหน้าตาคล้าย (ตัวลวงยอดนิยม)'},
+    {table:{head:['สำนวน A','ความหมาย','สำนวน B','ความหมาย'],rows:[
+      ['<i>I’m all ears.</i>','พร้อมฟัง','<i>I’m up to my ears.</i>','งานล้นมือ'],
+      ['<i>When it rains, it pours.</i>','เรื่องร้ายมาพร้อมกัน','<i>It’s raining cats and dogs.</i>','ฝนตกหนักมาก'],
+      ['<i>a piece of cake</i>','ง่ายมาก','<i>give someone a piece of my mind</i>','ต่อว่าตรง ๆ'],
+      ['<i>break the ice</i>','ละลายพฤติกรรม','<i>Break a leg!</i>','ขอให้โชคดี (ก่อนแสดงหรือแข่ง)'],
+      ['<i>on cloud nine</i>','ดีใจสุด ๆ','<i>on the fence</i>','ยังตัดสินใจไม่ได้']]}},
+    {h:'Discourse markers ในบทพูด จัดตามหน้าที่'},
+    {table:{head:['หน้าที่','คำ / วลี'],rows:[
+      ['เริ่มเรื่อง / เข้าเรื่อง','<i>To begin with, First of all, Without further ado,</i>'],
+      ['เพิ่มเรื่องไปทางเดียวกัน (+)','<i>Besides, What’s more, On top of that,</i>'],
+      ['เพิ่มเรื่องที่แย่ลงกว่าเดิม (−−)','<i>To make matters worse,</i>'],
+      ['แย้ง / ยอมรับแต่… (↔)','<i>Even so, Having said that, On the other hand,</i>'],
+      ['ความจริงแล้ว / แก้ความเข้าใจผิด','<i>As a matter of fact, Actually, In fact,</i>'],
+      ['ให้เหตุผล','<i>After all, Now that + ประโยค, Since + ประโยค</i>'],
+      ['เงื่อนไข','<i>In that case, Otherwise,</i>'],
+      ['สรุป','<i>At the end of the day, All in all, In short,</i>'],
+      ['เปลี่ยนเรื่อง','<i>By the way, Speaking of…, Anyway,</i>'],
+      ['เพิ่งเข้าใจ (มักอยู่ตอนจบบท)','<i>No wonder…, That explains it., So that’s why…</i>']]}},
+    {h:'Long Conversation 4 ขั้น'},
+    {ol:['อ่านผ่านทั้งบทก่อนราว 30 วินาที ดูว่าใครคุยกับใคร เรื่องอะไร และจบอย่างไร','ทำทีละช่อง โดยอ่านประโยค <b>หลัง</b> ช่องว่างก่อน เหมือน Short Conversation','ตามอารมณ์ตัวละคร (เหนื่อย ตกใจ ดีใจ หงุดหงิด) แล้วเลือกสำนวนที่เข้ากับอารมณ์นั้น','ข้อท้าย ๆ มักเฉลยจุดหักมุม ต้องอ่านให้ถึงบรรทัดสุดท้ายก่อนตอบ']},
+    {call:'warn',title:'⚠️ กับดักที่พบบ่อย',list:['ตัวเลือกที่มีคำซ้ำกับบท เช่น บทพูดถึงเรื่องร้ายหลายเรื่อง แต่ตัวเลือกคือ <i>raining cats and dogs</i> ซึ่งแปลว่าฝนตกหนัก','สำนวนที่ความหมายตรงข้าม เช่น <i>a piece of cake</i> กับ <i>over my head</i>','คำเชื่อมที่ทิศทางผิด เช่น ใช้ <i>Besides</i> ทั้งที่ประโยคตามมาขัดแย้งกัน','<i>Now that</i> และ <i>Since</i> ต่อด้วย <i>so</i> ในประโยคเดียวกันไม่ได้ เพราะจะมีคำเชื่อมซ้อนกัน 2 ตัว']},
+    {call:'trick',title:'🎯 Tricks เด็ด',list:[
+      '<b>ตรงตัวเกินไป = น่าสงสัย:</b> สำนวนเกือบทุกตัวแปลตรงตัวไม่ได้ ถ้าตัวเลือกไหนมีคำตรงกับเนื้อเรื่องตามตัวอักษร (เช่น มีคำว่า rain) ให้สงสัยไว้ก่อนว่าเป็นตัวลวง',
+      '<b>ใส่ลูกศรทิศทาง:</b> เขียน + (ไปทางเดียวกัน) ↔ (ขัดแย้ง) −− (แย่ลง) ไว้เหนือช่องว่าง แล้วตัดคำเชื่อมที่ทิศทางไม่ตรง มักตัดได้ 2 ตัวทันที',
+      '<b>สัญญาณหักมุม:</b> ถ้าตัวละครพูด <i>Wait… / Hold on… / Hmm…</i> ช่วงท้ายบท จุดหักมุมกำลังมา ข้อถัดไปมักเป็นปฏิกิริยา <i>No wonder… / So that’s why…</i>',
+      '<b><i>After all</i> ไม่ได้แปลว่า "หลังจากทั้งหมด":</b> แปลว่า "ยังไงก็… / อย่าลืมว่า…" ใช้ให้เหตุผลสนับสนุนสิ่งที่เพิ่งพูด',
+      '<b>จำสำนวนเป็นภาพ:</b> <i>up to my ears</i> = งานท่วมถึงหู, <i>over my head</i> = เรื่องลอยข้ามหัวไป จำง่ายกว่าท่องคำแปล']}
+  ],
+  vocab:[
+    ['I’m all ears.','สำนวน','พร้อมฟัง / เล่ามาเลย','“Can I tell you a secret?” “Sure, I’m all ears.”'],
+    ['be up to my ears (in…)','สำนวน','งานล้นมือ ยุ่งมาก','I’m up to my ears in homework this week.'],
+    ['to make matters worse','discourse marker','ที่แย่ไปกว่านั้น','I missed the bus, and to make matters worse, it started to rain.'],
+    ['When it rains, it pours.','สำนวน','ซวยซ้ำซวยซ้อน เรื่องร้ายมาพร้อมกัน','My phone broke, and then I lost my wallet. When it rains, it pours!'],
+    ['It’s raining cats and dogs.','สำนวน','ฝนตกหนักมาก','Take an umbrella. It’s raining cats and dogs.'],
+    ['a piece of cake','สำนวน','ง่ายมาก','The quiz was a piece of cake.'],
+    ['break the ice','สำนวน','ละลายพฤติกรรม ทำให้บรรยากาศผ่อนคลาย','Our teacher played a game to break the ice.'],
+    ['hit the books','สำนวน','อ่านหนังสืออย่างหนัก','I have to hit the books tonight.'],
+    ['under the weather','สำนวน','ไม่ค่อยสบาย','Mei stayed home because she felt under the weather.'],
+    ['That rings a bell.','สำนวน','ฟังคุ้น ๆ','“Do you know Hassan?” “Hmm, that name rings a bell.”'],
+    ['Stick to the point.','สำนวน','พูดให้ตรงประเด็น','We only have five minutes, so please stick to the point.'],
+    ['As a matter of fact,','discourse marker','ความจริงแล้ว','People think he is shy. As a matter of fact, he loves to talk.'],
+    ['Without further ado,','discourse marker','เข้าเรื่องเลย ไม่พูดพร่ำทำเพลง','Without further ado, let’s welcome our first speaker.'],
+    ['At the end of the day,','discourse marker','ท้ายที่สุดแล้ว','At the end of the day, your health is more important than your grades.'],
+    ['Now that + ประโยค','discourse marker','ในเมื่อ… / ตอนนี้ที่…','Now that you’re here, we can start the meeting.']
+  ],
+  vocabQuiz:[
+    {s:'A: I have something important to tell you. B: Go ahead. ______',o:['I’m all ears.','I’m up to my ears.','It’s a piece of cake.','That rings a bell.'],a:0,e:'I’m all ears = พร้อมฟัง ใช้เมื่ออีกฝ่ายกำลังจะเล่า'},
+    {s:'This math homework is ______. I finished it in ten minutes.',o:['under the weather','a piece of cake','up to my ears','raining cats and dogs'],a:1,e:'a piece of cake = ง่ายมาก ตรงกับทำเสร็จใน 10 นาที'},
+    {s:'Ahmed didn’t come to school today because he was feeling a bit ______.',o:['on cloud nine','all ears','under the weather','a piece of cake'],a:2,e:'under the weather = ไม่ค่อยสบาย เป็นเหตุผลที่ไม่มาโรงเรียน'},
+    {s:'First I missed the bus, and then I forgot my wallet. ______!',o:['It’s raining cats and dogs','Break a leg','Count me in','When it rains, it pours'],a:3,e:'เรื่องร้ายเกิดติดกัน → When it rains, it pours (ไม่เกี่ยวกับฝนจริง)'},
+    {s:'The name “Chen Wei” ______. I think we met at the English camp.',o:['rings a bell','breaks the ice','hits the books','makes matters worse'],a:0,e:'rings a bell = ฟังคุ้น ๆ จำได้ลาง ๆ'},
+    {s:'The teacher started the first class with a fun game to ______.',o:['hit the books','break the ice','stick to the point','make matters worse'],a:1,e:'break the ice = ละลายพฤติกรรมในวันแรก'},
+    {s:'I can’t go out tonight. I need to ______ for my chemistry test.',o:['break the ice','ring a bell','hit the books','be all ears'],a:2,e:'hit the books = อ่านหนังสืออย่างหนัก'},
+    {s:'______ you’ve finished all your exams, you can finally relax.',o:['Without further ado','As a matter of fact','At the end of the day','Now that'],a:3,e:'Now that + ประโยค = ในเมื่อ… ตัวเลือกอื่นต่อด้วยประโยคแบบนี้ไม่ได้'},
+    {s:'Many people think the test is very hard. ______, most students pass it.',o:['As a matter of fact','To make matters worse','Without further ado','Now that'],a:0,e:'As a matter of fact = ความจริงแล้ว ใช้แก้ความเข้าใจผิด'},
+    {s:'We discussed many ideas, but ______, the decision is yours.',o:['to make matters worse','at the end of the day','now that','without further ado'],a:1,e:'at the end of the day = ท้ายที่สุดแล้ว ใช้สรุป'}
+  ],
+  practice:{
+    title:'Idioms & Long Conversation Set (15 ข้อ)', minutes:11,
+    strategy:['<b>ช่องว่างที่เป็นสำนวน:</b> นึกความหมายจริงของสำนวน แล้วเทียบกับอารมณ์ของผู้พูด (เหนื่อย ดีใจ ตกใจ)','<b>ช่องว่างที่เป็นคำเชื่อม:</b> ดูทิศทางก่อน ว่าประโยคหลังไปทางเดียวกัน ขัดแย้ง หรือแย่ลงกว่าเดิม','<b>บทสนทนายาว:</b> อ่านผ่านทั้งบทก่อน 30 วินาที เพื่อรู้เรื่องและตอนจบ','ข้อท้ายของบทยาวมักเกี่ยวกับจุดหักมุม ต้องอ่านถึงบรรทัดสุดท้าย','เวลา: 15 ข้อ ≈ 11 นาที'],
+    groups:[
+      {label:'Short Conversation: Idioms', type:'dialogue', situation:'Two friends talking during a school break',
+       lines:[['Malee','You look tired, Raj. Are you okay?'],['Raj','Not really. I’m ____(1)____ in homework this week. I have three reports due on Friday.'],['Malee','That sounds stressful. ____(2)____'],['Raj','Thanks. Well, last night my laptop crashed, and ____(3)____, I hadn’t saved any of my work.'],['Malee','Oh no! ____(4)____'],['Raj','Exactly. First the reports, then the laptop. I can’t believe it.'],['Malee','Don’t worry. You can use my laptop this afternoon.']],
+       items:[
+        {sec:'L&S',tag:'สำนวน (คู่หน้าตาคล้าย)',d:'ปานกลาง',o:['all ears','up to my ears','on cloud nine','a piece of cake'],a:1,
+         e:'be up to my ears in + งาน = งานล้นมือ ตรงกับ "three reports due on Friday"',x:['I’m all ears = พร้อมฟัง ⚠️ หน้าตาคล้ายกัน แต่ใช้กับงานไม่ได้','= ดีใจสุด ๆ ขัดกับ "Not really" และความเหนื่อย','= ง่ายมาก ขัดกับความเครียด และใช้บรรยายตัวเองแบบนี้ไม่ได้']},
+        {sec:'L&S',tag:'สำนวน',d:'ง่าย',o:['Do you want to talk about it? I’m all ears.','Stick to the point, please.','Lucky you!','That rings a bell.'],a:0,
+         e:'ราชตอบ "Thanks. Well, ..." แล้วเล่าต่อ แปลว่ามาลีเพิ่งชวนให้เล่า',x:['ใช้เมื่ออีกฝ่ายพูดนอกเรื่อง แต่ราชยังไม่ได้เล่าอะไร','ใช้กับเรื่องโชคดี','= ฟังคุ้น ๆ ไม่มีเรื่องอะไรให้คุ้น']},
+        {sec:'L&S',tag:'Discourse marker',d:'ปานกลาง',o:['as a matter of fact','on the other hand','to make matters worse','at the end of the day'],a:2,
+         e:'เล่าเรื่องร้ายเรื่องที่สองที่แย่กว่าเดิม (ไม่ได้เซฟงาน) → to make matters worse',x:['= ความจริงแล้ว ใช้แก้ความเข้าใจผิด','ใช้กับสิ่งที่ตรงข้าม แต่ทั้งสองเรื่องร้ายเหมือนกัน','= ท้ายที่สุด ใช้สรุป ไม่ใช่เพิ่มเรื่องร้าย']},
+        {sec:'L&S',tag:'สำนวน (กับดักคำซ้ำ)',d:'ยาก',o:['It’s raining cats and dogs!','Break a leg!','That’s a piece of cake!','When it rains, it pours!'],a:3,
+         e:'ราชเจอเรื่องร้ายติดกัน (รายงาน + โน้ตบุ๊กพัง) When it rains, it pours = ซวยซ้ำซวยซ้อน และราชตอบ "Exactly. First the reports, then the laptop."',x:['⚠️ = ฝนตกหนักมาก ตัวลวงที่มีคำว่า rain แต่บทไม่มีเรื่องฝน','= ขอให้โชคดี (ก่อนแสดงหรือแข่ง)','= ง่ายมาก ขัดกับเรื่องร้าย']}
+       ]},
+      {label:'Short Conversation: Discourse Markers', type:'dialogue', situation:'A club meeting at school',
+       lines:[['Kenji','Okay, everyone, it’s already ten past four. ____(5)____ let’s hear from our treasurer, Pim.'],['Pim','Thanks, Kenji. Many of you think our club has no money left. ____(6)____ we still have 3,500 baht in our account.'],['Kenji','That’s good news. So, can we afford the trip to the science museum?'],['Pim','Yes, but it will cost about 3,000 baht, so we won’t have much left. ____(7)____ the trip is a great chance for new members to make friends, so I think it’s worth it.'],['Kenji','I agree. Let’s vote on it.']],
+       items:[
+        {sec:'L&S',tag:'Discourse marker',d:'ง่าย',o:['Without further ado,','In conclusion,','For example,','Even so,'],a:0,
+         e:'เคนจิบอกว่าเลยเวลามาแล้ว จึงเข้าเรื่องทันที Without further ado = เข้าเรื่องเลย ไม่พูดพร่ำทำเพลง',x:['ใช้สรุปตอนจบ แต่การประชุมเพิ่งเริ่ม','ไม่มีสิ่งที่ยกตัวอย่าง','= ถึงอย่างนั้น ไม่มีความขัดแย้งให้แย้ง']},
+        {sec:'L&S',tag:'Discourse marker',d:'ปานกลาง',o:['Besides,','As a matter of fact,','As a result,','For instance,'],a:1,
+         e:'แก้ความเข้าใจผิดของสมาชิก (คิดว่าไม่มีเงิน) ด้วยข้อเท็จจริง As a matter of fact = ความจริงแล้ว',x:['= นอกจากนี้ ใช้เพิ่มข้อมูลไปทางเดียวกัน','ไม่ใช่ผลของประโยคก่อนหน้า','ไม่ใช่ตัวอย่าง']},
+        {sec:'L&S',tag:'Discourse marker',d:'ยาก',o:['To make matters worse,','By the way,','Even so,','Now that'],a:2,
+         e:'ประโยคก่อนบอกข้อเสีย (เงินเหลือน้อย) แต่ประโยคนี้ยังสนับสนุนให้ไป → Even so = ถึงอย่างนั้น',x:['ใช้เพิ่มเรื่องแย่ แต่ประโยคที่ตามมาเป็นข้อดี','ใช้เปลี่ยนเรื่อง แต่ยังพูดเรื่องทัศนศึกษาอยู่','⚠️ Now that + ประโยค แล้วตามด้วย so อีกไม่ได้ เพราะจะมีคำเชื่อมซ้อนกัน 2 ตัว']}
+       ]},
+      {label:'Long Conversation', type:'dialogue', situation:'Two classmates waiting outside the exam room',
+       lines:[['Yuki','Morning, Somchai! ____(8)____'],['Somchai','Not really. I was up until two, hitting the books. I’m so tired.'],['Yuki','____(9)____ The exam doesn’t start until nine. You still have time to relax.'],['Somchai','I guess so. By the way, did you read the chapter on idioms?'],['Yuki','Yes. ____(10)____ I thought it would be difficult, but I finished it in twenty minutes.'],['Somchai','Lucky you! For me, it was really hard. Oh no… where’s my student ID? ____(11)____'],['Yuki','Calm down. ____(12)____'],['Somchai','I’ve already checked my bag twice! It isn’t there. They won’t let me into the room without it.'],['Yuki','Okay, okay. Let’s think. ____(13)____'],['Somchai','At home, I think. No, wait… I took it to the library yesterday.'],['Yuki','____(14)____ the library opens at eight, so we could go there now. Hmm… wait. Somchai, what’s that around your neck?'],['Somchai','Around my… oh! It’s my student ID! I’ve been wearing it all morning!'],['Yuki','____(15)____']],
+       items:[
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['Where did you buy that coffee?','Did you get enough sleep last night?','Have you ever been to Japan?','What time is the bus coming?'],a:1,
+         e:'สมชายตอบ "Not really. I was up until two..." ซึ่งตอบเรื่องการนอน',x:['ถามเรื่องกาแฟ คำตอบเรื่องนอนดึกไม่ตอบคำถามนี้','ถามประสบการณ์ ไม่เกี่ยวกับการนอนดึก','ถามเวลา ตอบ Not really ไม่ได้']},
+        {sec:'L&S',tag:'สำนวน',d:'ปานกลาง',o:['You’d better hurry up!','Count me in.','Stick to the point.','Take it easy.'],a:3,
+         e:'Take it easy = ใจเย็น ๆ / พักบ้าง สอดคล้องกับ "You still have time to relax."',x:['ขัดกับ "You still have time"','ใช้ตอบคำชวน','ใช้เมื่ออีกฝ่ายพูดนอกเรื่อง แต่สมชายไม่ได้ออกนอกเรื่อง']},
+        {sec:'L&S',tag:'สำนวน (ความหมายตรงข้าม)',d:'ปานกลาง',o:['It was a piece of cake.','I was up to my ears in it.','It rang a bell.','It was over my head.'],a:0,
+         e:'ยูกิคิดว่าจะยาก แต่ทำเสร็จใน 20 นาที → a piece of cake = ง่ายมาก',x:['= ยุ่งมาก ไม่ได้บอกความง่าย','= ฟังคุ้น ๆ ไม่ตรงกับ "finished it in twenty minutes"','⚠️ = ยากเกินจะเข้าใจ ความหมายตรงข้าม']},
+        {sec:'L&S',tag:'บริบท',d:'ง่าย',o:['I’ve just found it.','Here it is.','I can’t find it anywhere!','I’m all ears.'],a:2,
+         e:'สมชายตกใจว่าบัตรหาย และยูกิบอกให้ใจเย็น',x:['ขัดกับที่ยูกิบอกให้ใจเย็น และประโยคต่อมาที่ยังหาไม่เจอ','= นี่ไง (เจอแล้ว) ขัดกับเนื้อเรื่อง','= พร้อมฟัง ไม่เกี่ยวกับการหาของ']},
+        {sec:'L&S',tag:'บริบทประโยคถัดไป',d:'ง่าย',o:['Let’s go to the canteen first.','Don’t worry about the exam.','Did you lose your phone, too?','Have you looked in your bag?'],a:3,
+         e:'สมชายตอบ "I’ve already checked my bag twice!" จึงต้องเป็นคำถามว่าดูในกระเป๋าหรือยัง',x:['ไม่เกี่ยวกับการหาบัตร','สมชายกังวลเรื่องบัตร ไม่ใช่ข้อสอบ และไม่รับกับ "checked my bag"','ไม่มีเรื่องโทรศัพท์']},
+        {sec:'L&S',tag:'คำถาม Wh-',d:'ปานกลาง',o:['Who gave it to you?','Why do you need it?','Where was the last place you had it?','How long have you had it?'],a:2,
+         e:'สมชายตอบเป็นสถานที่ ("At home… the library") จึงต้องเป็นคำถาม Where',x:['สมชายตอบเป็นสถานที่ ไม่ใช่คน','สมชายเพิ่งอธิบายเหตุผลไปแล้ว และคำตอบเป็นสถานที่','ถามระยะเวลา แต่คำตอบเป็นสถานที่']},
+        {sec:'L&S',tag:'Discourse marker',d:'ยาก',o:['In that case,','In contrast,','Otherwise,','For example,'],a:0,
+         e:'In that case = ถ้าอย่างนั้น ใช้เสนอทางออกจากข้อมูลที่อีกฝ่ายเพิ่งบอก (ลืมบัตรไว้ที่ห้องสมุด)',x:['ใช้เปรียบเทียบสิ่งที่ตรงข้าม แต่ไม่มีการเปรียบเทียบ','= ไม่อย่างนั้น ความหมายไม่เข้ากับการเสนอทางออก','ไม่ได้ยกตัวอย่างของสิ่งใด']},
+        {sec:'L&S',tag:'จุดหักมุม',d:'ง่าย',o:['What a pity you left it at the library.','No wonder you couldn’t find it in your bag!','Don’t worry. I’m sure the library has it.','Congratulations on passing the exam!'],a:1,
+         e:'จุดหักมุม: บัตรห้อยคออยู่ตลอด No wonder… = มิน่าล่ะ ใช้แสดงว่าเพิ่งเข้าใจเหตุผล',x:['ขัดกับที่เพิ่งเจอบัตรที่คอ','บัตรไม่ได้อยู่ห้องสมุด','ยังไม่ได้สอบ']}
+       ]}
+    ]
+  },
+  homework:['Vocabulary Set 3: ทดสอบตัวเองด้วยบัตรคำจนจำได้ทั้ง 15 สำนวน','ทำ Idioms & Long Conversation Set ในโหมดจับเวลา 11 นาที ให้ได้ 12/15 ขึ้นไป','กด "ฟังบทสนทนา" ของบทยาว แล้วพูดตามทั้งบท (shadowing)','แต่งบทสนทนาสั้น 4 บรรทัด ที่ใช้สำนวนจากวันนี้อย่างน้อย 2 สำนวน','บันทึกข้อที่ผิดลง Error Log']
 }
 };
 
